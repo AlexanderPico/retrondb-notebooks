@@ -1,5 +1,5 @@
 # Introdution
-This repo contains python notebooks for interacting with the retronDB hosted on MongoDB Atlas
+This repo contains python notebooks for interacting with the retronDB hosted on MongoDB Atlas.
 
 
 # Installation
