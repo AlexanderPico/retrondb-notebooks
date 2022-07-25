@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul 25 09:58:00 2022
+The retrondb module of utility functions for interacting with the retronDB
+database hosted on MongoDB Atlas.
 
+Usage: import retrondb
+
+Created on Mon Jul 25 09:58:00 2022
 @author: alexpico
 """
+
 from pymongo import MongoClient
 from dotenv import load_dotenv
+import pandas as pd
 import os
 import getpass
 
@@ -14,6 +20,7 @@ import getpass
 ansiRed = "\033[91m {}\033[00m"
 ansiGreen = "\033[92m {}\033[00m"
 
+#Functions
 def get_retronDB(db_name='retronDB'):
     """
     Utility function to connect to the retron databases hosted by MongoDB Atlas.
@@ -52,4 +59,23 @@ def get_retronDB(db_name='retronDB'):
     else:
         # Return the retrons collection
         return(db['retrons'])
+    
+def get_all_retrons():
+    """
+    Returns a pandas DataFrame of all fields (columns) for all retrons (rows).
+    """
+
+    
+    
+def get_retron(id=None, format="df"):
+    """
+    Returns a single retron as either JSON or dictionary or DataFrame (default).
+    """
+
+    
+def get_retrons_by(key="_id", values=None):
+    """
+    Returns one or more retrons by a particular key and value. The default
+    key is "_id".
+    """
     
