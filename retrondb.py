@@ -19,11 +19,12 @@ import os
 import getpass
 import json
 import functools
+import sys
 
 #CONSTANTS
 ansiRed = "\033[91m {}\033[00m"
 ansiGreen = "\033[92m {}\033[00m"
-ansiBlue = "\033[94m {}\033[00m"
+# ansiBlue = "\033[94m {}\033[00m"
 
 
 ###############################################################################
@@ -96,7 +97,7 @@ def connect_retronDB(db_name='retronDB'):
         # Return the retrons collection
         return db['retrons']
     
-def save_retronDB(rdb_handle=None, filename=None):
+def save_retronDB(rdb_handle=None, filename=None, overwrite=False):
     """
     Save the entire retron database to a CSV file in your current working
     directory (See ``os.getcwd()``). Consider using ``os.chdir()`` to change the
@@ -114,7 +115,9 @@ def save_retronDB(rdb_handle=None, filename=None):
     filename : ``str``
         Full path or path relavtive to current working directory, in addition 
         to the name of the file to be written. The ``.csv`` extension is 
-        automatically added. 
+        automatically added is missing. 
+    overwrite : ``bool``
+        Whether to allow existing files to be overwritten. Default is False.
 
     Returns
     -------
@@ -123,15 +126,13 @@ def save_retronDB(rdb_handle=None, filename=None):
 
     """
     if re.search('.csv$', filename) is None: filename += '.csv'
-    if os.path.exists(filename):
-        return print(ansiRed.format("Error")+
-                     ": This file already exists and cannot be overwritten "+
-                     "with this function. Consider using a new filename.")
+    if os.path.exists(filename) and not overwrite:
+        raise ProtectedFileError()
  
     rdb_df = get_all_retrons(rdb_handle)
-    rdb_df.to_csv(filename, index=False,)
-    print("Saved retron database to:")
-    return print(os.path.abspath(filename))
+    rdb_df.to_csv(filename, index=False)
+    print("Saved retron database.")
+    return os.path.abspath(filename)
     
     
 def restore_retronDB(filename=None, db_name=None):
@@ -146,7 +147,7 @@ def restore_retronDB(filename=None, db_name=None):
     filename :  ``str``
         Full path or path relavtive to current working directory, in addition 
         to the name of the file to be read. The ``.csv`` extension is 
-        automatically added. 
+        automatically added is missing. 
     db_name : ``str``
         Name of the database to create from file.
 
@@ -161,9 +162,7 @@ def restore_retronDB(filename=None, db_name=None):
     rdb_handle = connect_retronDB(db_name)
     
     # load data
-    if re.search('.csv$', filename) is None: filename += '.csv'  
-    #TODO
-    
+    add_retrons_by_csv(rdb_handle,filename, True) 
     return rdb_handle
     
     
@@ -188,11 +187,7 @@ def get_all_retrons(rdb_handle=None, format="df"):
         Retron properties as JSON (str), dictionary, DataFrame, or Cursor
         depending on specified format
     
-    """       
-    format = format.lower() 
-    if format not in ["raw","json","dict","df"]:
-        raise ValueError ('format must be "raw", "json", "dict", "df" or empty')
-        
+    """               
     res = rdb_handle.find()
     return format_result(res, format)
     
@@ -219,10 +214,6 @@ def get_retron(rdb_handle=None, node=None, format="df"):
         depending on specified format
     
     """
-    format = format.lower()
-    if format not in ["raw","json","dict","df"]:
-        raise ValueError ('format must be "raw", "json", "dict", "df" or empty')
-        
     res = rdb_handle.find_one({"node":str(node)})
     return format_result(res, format)
 
@@ -231,16 +222,12 @@ def get_retrons_by(rdb_handle=None, key="node", value=None, format="df"):
     """
     Returns one or more retrons by a particular **key** and **value**. The default
     key is "node". Value can be a set of conditions using MongoDB query
-    comparison operators, e.g., {"$gt":5} or {"$gt":2,"$lt":8} or {"$in":[3,5,7]}
+    comparison operators, e.g., {"$eq":"5"} or {"$in":["3","5","7"]}
         
     https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/
     
     * $eq - Matches values that are equal to a specified value.
     * $ne - Matches all values that are not equal to a specified value.
-    * $gt - Matches values that are greater than a specified value.
-    * $gte - Matches values that are greater than or equal to a specified value.
-    * $lt - Matches values that are less than a specified value.
-    * $lte - Matches values that are less than or equal to a specified value.
     * $in - Matches any of the values specified in an array. Sensitive to type.
     * $nin - Matches none of the values specified in an array. Sensitive to type.
     
@@ -262,13 +249,11 @@ def get_retrons_by(rdb_handle=None, key="node", value=None, format="df"):
         Retron properties as JSON (str), dictionary, DataFrame, or Cursor
         depending on specified format
     
-    """
-    format = format.lower()
-    if format not in ["raw","json","dict","df"]:
-        raise ValueError ('format must be "raw", "json", "dict", "df" or empty')
-        
+    """     
     if isinstance(value, list):
-        return print('Sorry, more than one value is not supported. Consider using a set.')
+        raise TypeError ("Sorry, more than one value is not supported." +
+                         " Consider using the set syntax with comparison" +
+                         " operators.")
         
     if key == "node" and isinstance(value, int):
         value = str(value)
@@ -279,7 +264,7 @@ def get_retrons_by(rdb_handle=None, key="node", value=None, format="df"):
 
 ###############################################################################
 # ADD FUNCTIONS
-def add_retron(rdb_handle=None, ret_dict=None, new_property=False):
+def add_retron(rdb_handle=None, retron_dict=None, new_property=False):
     """
     Add a single retron given a dictionary. The ``dict`` must include a unique
     identifier key called "node" with a string-encoded integer, e.g., "node":"0".
@@ -292,7 +277,7 @@ def add_retron(rdb_handle=None, ret_dict=None, new_property=False):
     rdb_handle : ``pymongo.Collection`` obj
         A retron database collection object, e.g., the output of 
         ``get_retronDB()``
-    ret_dict : ``dict``
+    retron_dict : ``dict``
         A dictionary with retron data
     new_property : ``bool``, optional
         Whether to accept novel properties. Default is ``False``.
@@ -303,54 +288,42 @@ def add_retron(rdb_handle=None, ret_dict=None, new_property=False):
         DataFrame of added retron properties.
 
     """
-    
-    # Check: does ret_dict contain "node" property?
-    radd_props = set(ret_dict.keys())
+    radd_props = set(retron_dict.keys())
     if "node" not in radd_props:
         # SKIP: assigning new node ID if missing; might be too dangerous?
         # res = rdb_handle.find().sort("node", -1)
         # max_node = format_result(res[0], "df")['node'][0]
-        # ret_dict['node'] = str(int(max_node) +1)
+        # retron_dict['node'] = str(int(max_node) +1)
         # print("Assigning unique node ID...\n")
-        return print(ansiRed.format("MissingKeyError")+": Must provide a node ID")
+        raise MissingKeyError()
     else:
         # force string values for node IDs
-        ret_dict['node'] = str(ret_dict['node'])
+        retron_dict['node'] = str(retron_dict['node'])
         # "node" is indexed so, duplicates will be caught automatically
        
-    # Check: does ret_dict contain novel property names?
-    rdb_props = functools.reduce( lambda all_keys, rec_keys: all_keys | set(rec_keys), map(lambda d: d.keys(), rdb_handle.find()), set() )
-    radd_new = radd_props.difference(rdb_props)
-    if len(radd_new) > 0 and not new_property:
-        print(ansiRed.format("Error")+": Failed to add retron." +
-              " One or more unrecognized properties detected:" )
-        for n in radd_new:
-            print("\t"+n)
-        print("\nDouble check your property names or consider setting"+
-              " new_property=True")
-        return
+    check_new_property(rdb_handle, radd_props, new_property)
+    
+    try:
+        radd_obj = rdb_handle.insert_one(retron_dict)
+    except pm.errors.DuplicateKeyError:
+        print(ansiRed.format("DuplicateKeyError")+": A retron with the" +
+              " same node ID already exists in the database. Either" +
+              " change the node ID, remove the \"node\" property,"+
+              " or consider using update_retron().")
+    except Exception as e:
+        print(ansiRed.format("Error")+": Failed to add retron.\n", e)
     else:
-        try:
-            radd_obj = rdb_handle.insert_one(ret_dict)
-        except pm.errors.DuplicateKeyError:
-            print(ansiRed.format("DuplicateKeyError")+": A retron with the" +
-                  " same node ID already exists in the database. Either" +
-                  " change the node ID, remove the node property,"+
-                  " or consider using update_retron().")
-        except Exception as e:
-            print(ansiRed.format("Error")+": Failed to add retron.\n", e)
-        else:
-            radd_id = radd_obj.inserted_id
-            print("Added the following retron to the database:")
-            radd_res = rdb_handle.find_one({"_id":radd_id})
-            return format_result(radd_res)
+        radd_id = radd_obj.inserted_id
+        print("Added retron to the database.")
+        radd_res = rdb_handle.find_one({"_id":radd_id})
+        return format_result(radd_res)
         
 
 
-def add_retrons_by_csv(rdb_handle=None, csv_file=None, new_property=False):
+def add_retrons_by_csv(rdb_handle=None, filename=None, new_property=False):
     """
-    Add one or more retrons given a CSV file. The first column must contain a 
-    unique integer identifier and be named "node". 
+    Add one or more retrons given a CSV file. There must be
+    a unique integer identifier for each row in a column named "node".
     
     All properties will be checked against current database properties. By 
     default, unrecognized properties will be rejected (see **new_property** parameter).
@@ -360,8 +333,10 @@ def add_retrons_by_csv(rdb_handle=None, csv_file=None, new_property=False):
     rdb_handle : ``pymongo.Collection`` obj
         A retron database collection object, e.g., the output of 
         ``get_retronDB()``
-    csv_file : ``str``
-        Path to CSV file
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
     new_property : ``bool``, optional
         Whether to accept novel properties. Default is ``False``.
 
@@ -371,14 +346,35 @@ def add_retrons_by_csv(rdb_handle=None, csv_file=None, new_property=False):
         DataFrame of added retron properties.
 
     """
+    ret_df = read_retron_csv(rdb_handle=rdb_handle, filename=filename)
+    radd_props = set(ret_df.columns)
+    check_new_property(rdb_handle, radd_props, new_property)
     
-    print("Added the following retrons to the database:")
-    return
+    # strip strings 
+    ret_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+    
+    # DF to dict
+    ret_js = ret_df.to_json(orient='records')
+    ret_dict = json.loads(ret_js)
+    try:
+        radd_obj = rdb_handle.insert_many(ret_dict)
+    except pm.errors.DuplicateKeyError:
+        print(ansiRed.format("DuplicateKeyError")+": A retron with the" +
+              " same node ID already exists in the database. Either" +
+              " change the node ID, remove the \"node\" property,"+
+              " or consider using update_retron().")
+    except Exception as e:
+        print(ansiRed.format("Error")+": Failed to add retrons.\n", e)
+    else:
+        print("Added retrons to the database.")
+        radd_ids = radd_obj.inserted_ids
+        radd_res = rdb_handle.find({"_id":{"$in":radd_ids}})
+        return format_result(radd_res)
     
 ###############################################################################
 # UPDATE FUNCTIONS
 
-def update_retron(rdb_handle=None, ret_dict=None, new_property=False, replace=False):
+def update_retron(rdb_handle=None, retron_dict=None, new_property=False, replace=False):
     """
     Update an existing retron given a dictionaty. The ``dict`` must include a unique
     identifier key called "node" with a string-encoded integer, e.g., "node":"0".
@@ -391,7 +387,7 @@ def update_retron(rdb_handle=None, ret_dict=None, new_property=False, replace=Fa
     rdb_handle : ``pymongo.Collection`` obj
         A retron database collection object, e.g., the output of 
         ``get_retronDB()``
-    ret_dict : ``dict``
+    retron_dict : ``dict``
         A dictionary with retron data
     new_property : ``bool``, optional
         Whether to accept novel properties. Default is ``False``.
@@ -405,15 +401,32 @@ def update_retron(rdb_handle=None, ret_dict=None, new_property=False, replace=Fa
         DataFrame of added retron properties.
 
     """
+    rupd_props = set(retron_dict.keys())
+    if "node" not in rupd_props:
+        raise MissingKeyError()
+    else:
+        # force string values for node IDs
+        retron_dict['node'] = str(retron_dict['node'])
+       
+    check_new_property(rdb_handle, rupd_props, new_property)
     
+    # TODO: impl replace param (or add)
     
-    print("Updated the following retron in the database:")
-    return
+    # Get node list for update keys
+    rupd_node = str(retron_dict['node'])
+    try:
+        rdb_handle.update_one(retron_dict)
+    except Exception as e:
+        print(ansiRed.format("Error")+": Failed to update retron.\n", e)
+    else:
+        print("Updated retron in the database.")
+        rupd_res = rdb_handle.find({"node":{"$eq":rupd_node}})
+        return format_result(rupd_res)
 
-def update_retrons_by_csv(rdb_handle=None, csv_file=None, new_property=False, replace=False):
+def update_retrons_by_csv(rdb_handle=None, filename=None, new_property=False, replace=False):
     """
-    Update one or more existing retrons given a CSV file. The first column must 
-    contain a unique integer identifier and be named "node".
+    Update one or more existing retrons given a CSV file. There must be
+    a unique integer identifier for each row in a column named "node".
 
     All properties will be checked against current database properties. By 
     default, unrecognized properties will be rejected (see **new_property** parameter).
@@ -423,8 +436,10 @@ def update_retrons_by_csv(rdb_handle=None, csv_file=None, new_property=False, re
     rdb_handle : ``pymongo.Collection`` obj
         A retron database collection object, e.g., the output of 
         ``get_retronDB()``
-    csv_file : str
-        Path to CSV file
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
     new_property : ``bool``, optional
         Whether to accept novel properties. Default is ``False``.
     replace : ``bool``, optional
@@ -437,9 +452,29 @@ def update_retrons_by_csv(rdb_handle=None, csv_file=None, new_property=False, re
         DataFrame of added retron properties.
 
     """
+    ret_df = read_retron_csv(rdb_handle=rdb_handle, filename=filename)
+    rupd_props = set(ret_df.columns)
+    check_new_property(rdb_handle, rupd_props, new_property)
     
-    print("Updates the following retrons in the database:")
-    return
+    # TODO: impl replace param (or add)
+    
+    # strip strings 
+    ret_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+   
+    #DF to dict
+    ret_js = ret_df.to_json(orient='records')
+    ret_dict = json.loads(ret_js)
+    # Get node list for update keys
+    rupd_nodes = list(ret_df['node'])
+    try:
+        rdb_handle.update_many({"node":{"$in":rupd_nodes}}, ret_dict)
+    except Exception as e:
+        print(ansiRed.format("Error")+": Failed to update retrons.\n", e)
+    else:
+        print("Updated retrons in the database.")
+        rupd_res = rdb_handle.find({"node":{"$in":rupd_nodes}})
+        return format_result(rupd_res)
+
     
 
 ###############################################################################
@@ -467,29 +502,26 @@ def remove_retron(rdb_handle=None, node=None):
 
     """
     if isinstance(node, list):
-        return (print(ansiRed.format("TypeError")+
-                      ": node should be a single string. Make a loop if you have a list."))
+        raise TypeError ("\"node\" should be a single string. Make a loop if" + 
+                         " you have a list, or consider using " +
+                         " remove_retrons_by() with the set syntax.")
 
     gone = get_retron(rdb_handle, node)
     rdb_handle.delete_one({"node":str(node)})
-    print("Removed the following retron from the database:")
-    return(gone)
+    print("Removed a retron from the database.")
+    return gone
     
     
 def remove_retrons_by(rdb_handle=None, key="node", value=None ):
     """
     Remove one or more retrons by a particular **key** and **value**. The default
     key is "node". Value can be a set of conditions using MongoDB query
-    comparison operators, e.g., {"$gt":5} or {"$gt":2,"$lt":8} or {"$in":[3,5,7]}
+    comparison operators, e.g., {"$eq":"5"} or {"$in":["3","5","7"]}
         
     https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/
     
     * $eq - Matches values that are equal to a specified value.
     * $ne - Matches all values that are not equal to a specified value.
-    * $gt - Matches values that are greater than a specified value.
-    * $gte - Matches values that are greater than or equal to a specified value.
-    * $lt - Matches values that are less than a specified value.
-    * $lte - Matches values that are less than or equal to a specified value.
     * $in - Matches any of the values specified in an array. Sensitive to type.
     * $nin - Matches none of the values specified in an array. Sensitive to type.
     
@@ -511,19 +543,87 @@ def remove_retrons_by(rdb_handle=None, key="node", value=None ):
 
     """
     if isinstance(value, list):
-        return print('Sorry, more than one value is not supported. Consider using a set.')
+        raise TypeError ("Sorry, more than one value is not supported." +
+                         " Consider using the set syntax with comparison" +
+                         " operators.")
         
     if key == "node" and isinstance(value, int):
         value = str(value)
         
     gone = get_retrons_by(rdb_handle, key, value)
     rdb_handle.delete_many({str(key):value})
-    print("Removed the following retrons from the database:")
-    return(gone)
+    print("Removed retrons from the database.")
+    return gone
     
     
 ###############################################################################
 # INTERNAL FUNCTIONS
+def read_retron_csv(rdb_handle=None, filename=None):
+    """
+    Read, clean and validate retron data from a CSV file. There must be
+    a unique integer identifier for each row in a column named "node".
+    
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
+        
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of cleaned and validated csv data
+
+    """
+    if re.search('.csv$', filename) is None: filename += '.csv'  
+    ret_df = pd.read_csv(filename, dtype=str)
+    ret_cols = ret_df.columns
+    
+    # Drop "_id" if present (e.g., from backup file)
+    if "_id" in ret_cols:
+        ret_df = ret_df.drop('_id',1)
+    
+    # Check and store node ID list
+    if "node" not in ret_cols:
+       raise MissingKeyError("There must be a \"node\" column.")
+    ret_df = ret_df[ret_df['node']>="0"]
+    
+    return ret_df
+    
+def check_new_property(rdb_handle=None, props=None, new_property=False):
+    """
+    Check incoming properties against existing properties in retron database.
+    If new_property is False (default), then novel properties will be rejected.
+    
+    This check is intended to help protect against inserting typos and other
+    unintended property names into the database.
+    
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+        
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.  
+        
+    Returns
+    -------
+    None
+    
+    """
+    rdb_props = functools.reduce( lambda all_keys, rec_keys: all_keys | set(rec_keys), map(lambda d: d.keys(), rdb_handle.find()), set() )
+    radd_new = props.difference(rdb_props)
+    if len(radd_new) > 0 and not new_property:
+        raise UnrecognizedPropertyError(radd_new)
+
 def format_result(result=None, format="df"):
     """
     Transform one or more retronDB query results into useful formats. Takes 
@@ -570,33 +670,32 @@ def format_result(result=None, format="df"):
                 res = list(result.clone())
         return pd.DataFrame(res)
 
-# def print_table(result, doc_keys=None, headers=None):
-#     """
-#     Utility function to print a query result as a table.
-#     Params:
-#         doc_keys : A list of keys for data to be extracted from each document.
-#         result : A MongoDB cursor.
-#         headers : A list of headers for the table. If not provided, attempts to
-#             generate something sensible from the provided `doc_keys`
-#     """
-#     if doc_keys is None:
-#         doc_keys = set()
-#         for doc in result:
-#             doc_keys.update(set(doc.keys()))
-#     doc_keys = list(doc_keys)
-    
-#     if headers is None:
-#         headers = [key.replace("_", " ").replace("-", " ").title() for key in doc_keys]
-   
-#     records = (extract_tuple(doc, doc_keys) for doc in result)
-#     print(tabulate(records, headers=headers))
+###############
+# CLASSES
 
+class MissingKeyError(ValueError):
+    '''When the node ID key is missing from incoming retron data'''
+    sys.tracebacklimit = 0
+    def __init__(self, message='Please provide a node ID'):
+        self.message = message
+        super().__init__(self.message)
 
-# def extract_tuple(mapping, keys):
-#     """
-#     Extract a tuple from a mapping by requesting a sequence of keys.
-    
-#     Missing keys will result in `None` values in the resulting tuple.
-#     """
-#     return tuple([mapping.get(key) for key in keys])
-    
+class UnrecognizedPropertyError(ValueError):
+    '''When a new property is found in incoming retron data'''
+    sys.tracebacklimit = 0
+    def __init__(self, new_props, message='Failed to add or update retron. '+
+                 "\nOne or more unrecognized properties detected:\n"):
+        self.message = message
+        for n in new_props:
+            self.message += "\t"+n+"\n"
+        self.message += "\nDouble check your property names or consider setting new_property=True"
+        super().__init__(self.message)
+        
+class ProtectedFileError(ValueError):
+    '''When a file already exists. Overwrite is not allowed.'''
+    sys.tracebacklimit = 0
+    def __init__(self, message="This file already exists and cannot be" +
+                 " overwritten with this function. Consider using a new" +
+                 " filename."):
+        self.message = message
+        super().__init__(self.message)

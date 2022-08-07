@@ -1,0 +1,77 @@
+﻿bacterial vector,Retron namef,Node,RT/Cladea,Retron (sub)b,msr/msd familiyc,Cluster/domaind,Accesione,Taxon code,Species/strain,Domain,Phylum,Class,Order,Family,Genus
+Retron-Eco7 (Ec78),Retron-Eco7 (Ec78),2,1, I-A, IA/IIA1,22_1,WP_000111473.1,670897,Escherichia coli,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+Retron-Vpa1 (Vp96)g,Retron-Vpa1 (Vp96)g,11,1, I-A, IA/IIA1,22_1,WP_140315795.1,670,Vibrio parahaemolyticus,Bacteria,Proteobacteria,Gammaproteobacteria,Vibrionales,Vibrionaceae,Vibrio
+Retron-Eco4 (Ec83),Retron-Eco4 (Ec83),64,1, I-A, IA/IIA1,22_1,WP_001403504.1,670897,Escherichia coli,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+Retron-Vch1 (Vc95)g,Retron-Vch1 (Vc95)g,87,1, I-A, IA/IIA1,22_1,WP_159353404.1,666,Vibrio cholerae,Bacteria,Proteobacteria,Gammaproteobacteria,Vibrionales,Vibrionaceae,Vibrio
+Retron-Sen2 (St85)g,Retron-Sen2 (St85)g,116,1, II-A1, IA/IIA1,42_2,EDM6246721.1,1008297,Salmonella enterica subsp. enterica serovar Typhimurium ,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Salmonella
+Retron-Vch2 (Vc81),Retron-Vch2 (Vc81),136,1, II-A1, IA/IIA1,42_2,WP_001022871.1,991944,Vibrio cholerae,Bacteria,Proteobacteria,Gammaproteobacteria,Vibrionales,Vibrionaceae,Vibrio
+pSLS.598,X,161,1,II-A1,IA/IIA1,42_2,fig|101571.310.peg.3956,101571,Burkholderia ubonensis,Bacteria,Proteobacteria,Betaproteobacteria,Burkholderiales,Burkholderiaceae,Burkholderia
+pSLS.588,X,208,1,II-A1,,42_2,fig|244366.32.peg.1886,244366,Klebsiella variicola,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Klebsiella
+pSLS.589,X,257,1,II-A1,IA/IIA1,42_2,fig|28229.4.peg.4229,28229,Colwellia psychrerythraea,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Colwelliaceae,Colwellia
+Retron-Eco3 (Ec73),Retron-Eco3 (Ec73),289,1, II-A1, IA/IIA1,42_2,WP_137545672.1,670897,Escherichia coli,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+pSLS.578,Kpn2,290,1,II-A1,,42_2,fig|573.14856.peg.3852,573,Klebsiella pneumoniae,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Klebsiella
+pSLS.599,X,376,2,III-A1,IIIA1,113_1,fig|172045.56.peg.2231,172045,Elizabethkingia miricola,Bacteria,Bacteroidetes,Flavobacteriia,Flavobacteriales,Flavobacteriaceae,Elizabethkingia
+pSLS.614,X,397,2,III-A1,,113_1,fig|1500289.3.peg.4469,1500289,Chryseobacterium sp. OV705,Bacteria,Bacteroidetes,Flavobacteriia,Flavobacteriales,Flavobacteriaceae,Chryseobacterium
+pSLS.615,X,398,2,III-A1,IIIA1,113_1,fig|1197728.3.peg.2386,1197728,Prevotella conceptionensis 9403948,Bacteria,Bacteroidetes,Bacteroidia,Bacteroidales,Prevotellaceae,Prevotella
+pSLS.579,Oan1,400,2,III-A1,,113_1,fig|529.12.peg.1303,529,Ochrobactrum anthropi,Bacteria,Proteobacteria,Alphaproteobacteria,Rhizobiales,Brucellaceae,Ochrobactrum
+pSLS.625,,412,2,III-A1,IIIA1,113_1,fig|1167006.5.peg.2941,1167006,Desulfocapsa sulfexigens DSM 10523,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfobacterales,Desulfobulbaceae,Desulfocapsa
+pSLS.626,,443,2,,Ec107-like,NC,fig|1111728.3.peg.587,1111728,Budvicia aquatica DSM 5075 = ATCC 35567,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Budviciaceae,Budvicia
+Retron-Eco5 (Ec107),Retron-Eco5 (Ec107),466,2,,Ec107-like,NC,WP_001775049.1,670897,Escherichia coli,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+pSLS.627,,486,Orphan,,,,fig|1307.1644.peg.1532,1307,Streptococcus suis,Bacteria,Firmicutes,Bacilli,Lactobacillales,Streptococcaceae,Streptococcus
+Retron-Eco6 (Ec48),Retron-Eco6 (Ec48),488,3, IV, IV,826_1,WP_097505494.1,670897,Escherichia coli,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+pSLS.622,,544,3,V,V,85_1,fig|1932666.4.peg.1886,1932666,Haliea sp.,Bacteria,Proteobacteria,Gammaproteobacteria,Cellvibrionales,Halieaceae,Haliea
+Retron-Sen1 (Se72),Retron-Sen1 (Se72),553,3, V, V,85_1,KJT50308.1,1029989,Salmonella enterica subsp. enterica serovar Heidelberg str. RI-11-014588,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Salmonella
+pSLS.591,X,613,3,VI,,np,fig|1339287.3.peg.1113,1339287,Bacteroides fragilis str. 3986 T(B)9,Bacteria,Bacteroidetes,Bacteroidia,Bacteroidales,Bacteroidaceae,Bacteroides
+pSLS.628,,703,3,VI,,2_1,fig|1975705.3.peg.898,1975705,Psychrobacter sp. FDAARGOS_221,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Moraxellaceae,Psychrobacter
+pSLS.580,Eco11,749,3,I-B2,IB2 (Proteobacteria),159_1,fig|1181777.3.peg.78,1181777,Escherichia coli KTE233,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+pSLS.581,Cha1,783,4,VII-A1,,RT-DUF3800,fig|576117.5.peg.4005,576117,Celeribacter halophilus,Bacteria,Proteobacteria,Alphaproteobacteria,Rhodobacterales,Rhodobacteraceae,Celeribacter
+pSLS.567,Proot1,789,4,VII-A1,,RT-DUF3800,fig|1736574.3.peg.4024,1736574,Pseudoxanthomonas sp. Root630,Bacteria,Proteobacteria,Gammaproteobacteria,Xanthomonadales,Xanthomonadaceae,Pseudoxanthomonas
+pSLS.582,Dba1,807,4,VII-A2,,2165,fig|1948560.3.peg.3003,1948560,Deltaproteobacteria bacterium UBA6106,Bacteria,Proteobacteria,Deltaproteobacteria,,,
+pSLS.568,Ban1,808,5,III-A5,,67_1,fig|1392.364.peg.2564,1392,Bacillus anthracis,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Bacillus
+pSLS.569,Pya1,810,5,III-A5,,67_1,fig|1385514.3.peg.313,1385514,Pontibacillus yanchengensis Y32,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Pontibacillus
+pSLS.583,Lna1,812,5,III-A5,,67_1,fig|1423774.3.peg.1262,1423774,Lactobacillus nantensis DSM 16982,Bacteria,Firmicutes,Bacilli,Lactobacillales,Lactobacillaceae,Lactobacillus
+pSLS.570,Aco1,814,6,III-A5,,113_2,fig|169435.7.peg.1348,169435,Anaerotruncus colihominis,Bacteria,Firmicutes,Clostridia,Clostridiales,Ruminococcaceae,Anaerotruncus
+pSLS.571,Fba1,816,6,III-A5,,113_2,fig|1948087.3.peg.796,1948087,Firmicutes bacterium UBA6113,Bacteria,Firmicutes,,,,
+pSLS.584,Abe1,824,7,IX,IX,1740_1,fig|170623.6.peg.4661,170623,Azotobacter beijerinckii,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Pseudomonadaceae,Azotobacter
+pSLS.572,Kva1,842,7,IX,IX,1740_1,fig|244366.46.peg.3595,244366,Klebsiella variicola,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Klebsiella
+pSLS.573,Eas1,844,7,IX,IX,np,fig|61645.10.peg.2019,61645,Enterobacter asburiae,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Enterobacter
+pSLS.630,,888,8,I-C1,IC,RT-Toprim (DXD),fig|40324.334.peg.1103,40324,Stenotrophomonas maltophilia,Bacteria,Proteobacteria,Gammaproteobacteria,Xanthomonadales,Xanthomonadaceae,Stenotrophomonas
+pSLS.592,X,939,8,I-C1,IC,RT-Toprim (DXD),fig|1437360.11.peg.2429,1437360,Bradyrhizobium erythrophlei,Bacteria,Proteobacteria,Alphaproteobacteria,Rhizobiales,Bradyrhizobiaceae,Bradyrhizobium
+pSLS.631,,975,8,I-C1,IC,RT-Toprim (DXD),fig|1310638.3.peg.1006,1310638,Acinetobacter baumannii 1437282,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Moraxellaceae,Acinetobacter
+Retron-Eco2 (Ec67),Retron-Eco2 (Ec67),1036,8, I-C1, IC,RT-Toprim (DXD),WP_140159440.1,670897,Escherichia coli,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+pSLS.616,X,1100,8,I-C2,IC,RT-Toprim (MarioE),fig|59620.44.peg.897,59620,uncultured Clostridium sp.,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiaceae,Clostridium
+pSLS.632,,1122,8,XI,,RT-Protease,fig|1881068.3.peg.2940,1881068,Sphingomonas sp. OV641,Bacteria,Proteobacteria,Alphaproteobacteria,Sphingomonadales,Sphingomonadaceae,Sphingomonas
+pSLS.593,X,1163,8,XI,,RT-Protease,fig|165186.29.peg.27,165186,uncultured Ruminococcus sp.,Bacteria,Firmicutes,Clostridia,Clostridiales,Ruminococcaceae,Ruminococcus
+pSLS.617,X,1235,8,XI,,RT-Protease,fig|1661042.3.peg.2224,1661042,Pseudomonas sp. NBRC 111127,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Pseudomonadaceae,Pseudomonas
+pSLS.594,X,1294,9,III-A3,IIIIA3,67_3,fig|2052957.3.peg.3497,2052957,Pseudorhodobacter sp. MZDSW-24AT,Bacteria,Proteobacteria,Alphaproteobacteria,Rhodobacterales,Rhodobacteraceae,Pseudorhodobacter
+pSLS.618,X,1352,9,III-A3,IIIIA3,67_3,fig|1967657.4.peg.913,1967657,Salmonella enterica subsp. enterica serovar Telelkebir,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Salmonella
+pSLS.619,X,1353,9,III-A3,IIIIA3,67_3,fig|573.14330.peg.816,573,Klebsiella pneumoniae,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Klebsiella
+pSLS.623,,1391,9,III-A3,,67_3,fig|1117315.3.peg.3,1117315,Pseudoalteromonas haloplanktis ATCC 14393,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Pseudoalteromonadaceae,Pseudoalteromonas
+pSLS.595,X,1421,9,III-A3,IIIIA3,67_3,fig|1421338.3.peg.151,1421338,Enterobacter asburiae L1,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Enterobacter
+pSLS.596,X,1422,9,III-A3,IIIIA3,67_3,fig|443144.3.peg.785,443144,Geobacter sp. M21,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfuromonadales,Geobacteraceae,Geobacter
+pSLS.633,,1453,9,III-A2,IIIIA2,113_4,fig|287.3208.peg.1464,287,Pseudomonas aeruginosa,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Pseudomonadaceae,Pseudomonas
+pSLS.620,X,1484,9,III-A2,,113_4,fig|1073383.3.peg.1289,1073383,Aeromonas veronii AMC34,Bacteria,Proteobacteria,Gammaproteobacteria,Aeromonadales,Aeromonadaceae,Aeromonas
+pSLS.621,X,1485,9,III-A2,,113_4,fig|190893.14.peg.2110,190893,Vibrio coralliilyticus,Bacteria,Proteobacteria,Gammaproteobacteria,Vibrionales,Vibrionaceae,Vibrio
+pSLS.634,,1498,9,III-A4,,67_2b,fig|1685010.5.peg.4376,1685010,Chryseobacterium glaciei,Bacteria,Bacteroidetes,Flavobacteriia,Flavobacteriales,Flavobacteriaceae,Chryseobacterium
+pSLS.487,Retron-Eco1 (Ec86),1550,9, II-A3, IIA3 (Proteobacteria),42_1,WP_099010551.1,670897,Escherichia coli,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+Retron-Vch3 (Vc137),Retron-Vch3 (Vc137),1575,9, II-A3,,42_1,fig|1343738.3.peg.2232,1343738,Vibrio cholerae 2012EL-1759,Bacteria,Proteobacteria,Gammaproteobacteria,Vibrionales,Vibrionaceae,Vibrio
+Retron-Mxa2 (Mx65)g,Retron-Mxa2 (Mx65)g,1625,10, XIII, XIII (Mx65),114_1,AAA88323.1,1198133,Myxococcus xanthus,Bacteria,Proteobacteria,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus
+pSLS.624,,1673,10,XIII,XIII (Ne144),114_1,fig|634771.3.peg.967,634771,Chitinophaga eiseniae,Bacteria,Bacteroidetes,Chitinophagia,Chitinophagales,Chitinophagaceae,Chitinophaga
+pSLS.597,X,1710,10,XIII,XIII (Ne144),np,fig|2029111.3.peg.3032,2029111,Comamonadaceae bacterium NML120219,Bacteria,Proteobacteria,Betaproteobacteria,Burkholderiales,Comamonadaceae,
+Retron-Nex2 (Ne144)g,Retron-Nex2 (Ne144)g,1762,10, XIII, XIII (Ne144),114_1,AAL40743.1,54,Nannocystis exedens,Bacteria,Proteobacteria,Deltaproteobacteria,Myxococcales,Nannocystaceae,Nannocystis
+Retron-Mxa1 (Mx162)g,Retron-Mxa1 (Mx162)g,1793,10, XIII, XIII (Mx162),114_1,AAA25405.1,1198133,Myxococcus xanthus,Bacteria,Proteobacteria,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus
+Retron-Sau1 (Sa163),Retron-Sau1 (Sa163),1795,10, XIII, XIII (Mx162),114_1,WP_002615305.1,378806,Stigmatella aurantiaca,Bacteria,Proteobacteria,Deltaproteobacteria,Myxococcales,Archangiaceae,Stigmatella
+pSLS.585,Mxa3,1875,11,,A,NC,fig|1198133.3.peg.2442,1198133,Myxococcus xanthus DZ2,Bacteria,Proteobacteria,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus
+pSLS.586,Nsa1,1913,11,,B,NC,fig|1210073.4.peg.1031,1210073,Nocardia salmonicida NBRC 100378,Bacteria,Actinobacteria,Actinobacteria,Corynebacteriales,Nocardiaceae,Nocardia
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+pSLS.636,,,AAXX01000006,,replicative helicase,,,,,,,,,,
+pSLS.637,,,JADJDM010000011,,replicative helicase,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+pSLS.587,X,1,1,I-A,IA/IIA1,22_1,fig|670897.3.peg.2382,670897,Escherichia coli 2362-75,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+pSLS.577,Eco10,288,1,II-A1,,42_2,fig|1444151.3.peg.2733,1444151,Escherichia coli 2-177-06_S3_C2,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia
+pSLS-629,,855,7,X,,2273_1,fig|2026779.30.peg.3181,2026779,Planctomycetaceae bacterium,Bacteria,Planctomycetes,Planctomycetia,Planctomycetales,Planctomycetaceae,
+pSLS.635,,1549,9,II-A3,,np,fig|1953111.3.peg.2436,1953111,Acidobacteria bacterium UBA7540,Bacteria,Acidobacteria,,,,
