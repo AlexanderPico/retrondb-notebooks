@@ -19,7 +19,6 @@ import os
 import getpass
 import json
 import functools
-import sys
 
 #CONSTANTS
 ansiRed = "\033[91m {}\033[00m"
@@ -350,19 +349,19 @@ def add_retrons_by_csv(rdb_handle=None, filename=None, new_property=False):
     radd_props = set(ret_df.columns)
     check_new_property(rdb_handle, radd_props, new_property)
     
-    # strip strings 
-    ret_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
-    
     # DF to dict
     ret_js = ret_df.to_json(orient='records')
     ret_dict = json.loads(ret_js)
     try:
         radd_obj = rdb_handle.insert_many(ret_dict)
-    except pm.errors.DuplicateKeyError:
-        print(ansiRed.format("DuplicateKeyError")+": A retron with the" +
+    except pm.errors.BulkWriteError as e:
+        if "duplicate key error" in e.args[0]:
+            print(ansiRed.format("DuplicateKeyError")+": A retron with the" +
               " same node ID already exists in the database. Either" +
               " change the node ID, remove the \"node\" property,"+
-              " or consider using update_retron().")
+              " or consider using update_retrons_by_csv().")
+        else:
+            print(ansiRed.format("Error")+": Failed to add retrons.\n", e)
     except Exception as e:
         print(ansiRed.format("Error")+": Failed to add retrons.\n", e)
     else:
@@ -415,7 +414,7 @@ def update_retron(rdb_handle=None, retron_dict=None, new_property=False, replace
     # Get node list for update keys
     rupd_node = str(retron_dict['node'])
     try:
-        rdb_handle.update_one(retron_dict)
+        rdb_handle.update_one({"node":rupd_node},{"$set":retron_dict})
     except Exception as e:
         print(ansiRed.format("Error")+": Failed to update retron.\n", e)
     else:
@@ -458,16 +457,13 @@ def update_retrons_by_csv(rdb_handle=None, filename=None, new_property=False, re
     
     # TODO: impl replace param (or add)
     
-    # strip strings 
-    ret_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
-   
     #DF to dict
     ret_js = ret_df.to_json(orient='records')
     ret_dict = json.loads(ret_js)
     # Get node list for update keys
     rupd_nodes = list(ret_df['node'])
     try:
-        rdb_handle.update_many({"node":{"$in":rupd_nodes}}, ret_dict)
+        rdb_handle.update_many({"node":{"$in":rupd_nodes}}, ret_dict) #TODO https://stackoverflow.com/questions/68530571/update-many-mongo-document-with-pymongo
     except Exception as e:
         print(ansiRed.format("Error")+": Failed to update retrons.\n", e)
     else:
@@ -590,10 +586,13 @@ def read_retron_csv(rdb_handle=None, filename=None):
     if "_id" in ret_cols:
         ret_df = ret_df.drop('_id',1)
     
-    # Check and store node ID list
+    # Check node IDs
     if "node" not in ret_cols:
        raise MissingKeyError("There must be a \"node\" column.")
     ret_df = ret_df[ret_df['node']>="0"]
+    
+    # Strip leading and trailing blanks
+    ret_df = ret_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
     
     return ret_df
     
@@ -623,6 +622,7 @@ def check_new_property(rdb_handle=None, props=None, new_property=False):
     radd_new = props.difference(rdb_props)
     if len(radd_new) > 0 and not new_property:
         raise UnrecognizedPropertyError(radd_new)
+
 
 def format_result(result=None, format="df"):
     """
@@ -675,16 +675,15 @@ def format_result(result=None, format="df"):
 
 class MissingKeyError(ValueError):
     '''When the node ID key is missing from incoming retron data'''
-    sys.tracebacklimit = 0
     def __init__(self, message='Please provide a node ID'):
         self.message = message
         super().__init__(self.message)
 
+
 class UnrecognizedPropertyError(ValueError):
     '''When a new property is found in incoming retron data'''
-    sys.tracebacklimit = 0
     def __init__(self, new_props, message='Failed to add or update retron. '+
-                 "\nOne or more unrecognized properties detected:\n"):
+                  "\nOne or more unrecognized properties detected:\n\n"):
         self.message = message
         for n in new_props:
             self.message += "\t"+n+"\n"
@@ -693,9 +692,9 @@ class UnrecognizedPropertyError(ValueError):
         
 class ProtectedFileError(ValueError):
     '''When a file already exists. Overwrite is not allowed.'''
-    sys.tracebacklimit = 0
     def __init__(self, message="This file already exists and cannot be" +
                  " overwritten with this function. Consider using a new" +
                  " filename."):
         self.message = message
         super().__init__(self.message)
+
