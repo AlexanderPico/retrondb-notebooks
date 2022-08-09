@@ -305,9 +305,10 @@ def add_retron(rdb_handle=None, retron_dict=None, new_property=False):
     try:
         radd_obj = rdb_handle.insert_one(retron_dict)
     except pm.errors.DuplicateKeyError:
-        print(ansiRed.format("DuplicateKeyError")+": A retron with the" +
+        print(ansiRed.format("DuplicateKeyError")+": \"" +
+          retron_dict['node'] + "\" A retron with this" +
               " same node ID already exists in the database. Either" +
-              " change the node ID, remove the \"node\" property,"+
+              " change the node ID"+
               " or consider using update_retron().")
     except Exception as e:
         print(ansiRed.format("Error")+": Failed to add retron.\n", e)
@@ -355,25 +356,31 @@ def add_retrons_by_csv(rdb_handle=None, filename=None, new_property=False):
     try:
         radd_obj = rdb_handle.insert_many(ret_dict)
     except pm.errors.BulkWriteError as e:
+        # identify if any retrons were inserted prior to error
+        num_inserted = e.details['nInserted']
+        radd_ids = [ ret['_id'] for ret in ret_dict[:num_inserted]]
         if "duplicate key error" in e.args[0]:
-            print(ansiRed.format("DuplicateKeyError")+": A retron with the" +
+            print(ansiRed.format("DuplicateKeyError")+": \"" +
+              ret_dict[num_inserted]['node'] + "\" A retron with this" +
               " same node ID already exists in the database. Either" +
-              " change the node ID, remove the \"node\" property,"+
-              " or consider using update_retrons_by_csv().")
+              " change the node ID"+
+              " or consider using update_retrons_by_csv().\n")
         else:
             print(ansiRed.format("Error")+": Failed to add retrons.\n", e)
     except Exception as e:
         print(ansiRed.format("Error")+": Failed to add retrons.\n", e)
     else:
-        print("Added retrons to the database.")
         radd_ids = radd_obj.inserted_ids
+    finally:
+        if len(radd_ids) > 0:
+            print("Added retrons to the database.")
         radd_res = rdb_handle.find({"_id":{"$in":radd_ids}})
         return format_result(radd_res)
     
 ###############################################################################
 # UPDATE FUNCTIONS
 
-def update_retron(rdb_handle=None, retron_dict=None, new_property=False, replace=False):
+def update_retron(rdb_handle=None, retron_dict=None, new_property=False):
     """
     Update an existing retron given a dictionaty. The ``dict`` must include a unique
     identifier key called "node" with a string-encoded integer, e.g., "node":"0".
@@ -390,9 +397,8 @@ def update_retron(rdb_handle=None, retron_dict=None, new_property=False, replace
         A dictionary with retron data
     new_property : ``bool``, optional
         Whether to accept novel properties. Default is ``False``.
-    replace : ``bool``, optional
-        Whether to replace all properties of existing retron with new 
-        information, e.g., remove then add.
+    add : ``bool``, optional
+        Whether to add new retrons if not previously entered.
 
     Returns
     -------
@@ -409,8 +415,6 @@ def update_retron(rdb_handle=None, retron_dict=None, new_property=False, replace
        
     check_new_property(rdb_handle, rupd_props, new_property)
     
-    # TODO: impl replace param (or add)
-    
     # Get node list for update keys
     rupd_node = str(retron_dict['node'])
     try:
@@ -422,13 +426,16 @@ def update_retron(rdb_handle=None, retron_dict=None, new_property=False, replace
         rupd_res = rdb_handle.find({"node":{"$eq":rupd_node}})
         return format_result(rupd_res)
 
-def update_retrons_by_csv(rdb_handle=None, filename=None, new_property=False, replace=False):
+def update_retrons_by_csv(rdb_handle=None, filename=None, new_property=False, add=False):
     """
     Update one or more existing retrons given a CSV file. There must be
     a unique integer identifier for each row in a column named "node".
 
     All properties will be checked against current database properties. By 
     default, unrecognized properties will be rejected (see **new_property** parameter).
+    
+    Only pre-existing retrons will be updated. Rows pertaining to new retrons
+    will be ignored unless **add**=True.
 
     Parameters
     ----------
@@ -441,9 +448,8 @@ def update_retrons_by_csv(rdb_handle=None, filename=None, new_property=False, re
         automatically added is missing. 
     new_property : ``bool``, optional
         Whether to accept novel properties. Default is ``False``.
-    replace : ``bool``, optional
-        Whether to replace all properties of existing retron with new 
-        information, e.g., remove then add.
+    add : ``bool``, optional
+        Whether to add new retrons if not previously entered.
             
     Returns
     -------
@@ -455,21 +461,21 @@ def update_retrons_by_csv(rdb_handle=None, filename=None, new_property=False, re
     rupd_props = set(ret_df.columns)
     check_new_property(rdb_handle, rupd_props, new_property)
     
-    # TODO: impl replace param (or add)
-    
     #DF to dict
     ret_js = ret_df.to_json(orient='records')
-    ret_dict = json.loads(ret_js)
+    ret_dict_list = json.loads(ret_js)
     # Get node list for update keys
+    for retron_dict in ret_dict_list:
+        rupd_node = str(retron_dict['node'])
+        try:
+            rdb_handle.update_one({"node":rupd_node},{"$set":retron_dict},
+                                  upsert=add)
+        except Exception as e:
+            print(ansiRed.format("Error")+": Failed to update retrons.\n", e)
+    print("Updated retrons in the database.")
     rupd_nodes = list(ret_df['node'])
-    try:
-        rdb_handle.update_many({"node":{"$in":rupd_nodes}}, ret_dict) #TODO https://stackoverflow.com/questions/68530571/update-many-mongo-document-with-pymongo
-    except Exception as e:
-        print(ansiRed.format("Error")+": Failed to update retrons.\n", e)
-    else:
-        print("Updated retrons in the database.")
-        rupd_res = rdb_handle.find({"node":{"$in":rupd_nodes}})
-        return format_result(rupd_res)
+    rupd_res = rdb_handle.find({"node":{"$in":rupd_nodes}})
+    return format_result(rupd_res)
 
     
 
@@ -477,10 +483,10 @@ def update_retrons_by_csv(rdb_handle=None, filename=None, new_property=False, re
 # REMOVE FUNCTIONS
 def remove_retron(rdb_handle=None, node=None):
     """
-    Remove a retron given its node identifier.
-    
     IMPORTANT: This action will delete a retron and all of its properties from 
     the database!
+
+    Remove a retron given its node identifier. 
 
     Parameters
     ----------
@@ -510,6 +516,9 @@ def remove_retron(rdb_handle=None, node=None):
     
 def remove_retrons_by(rdb_handle=None, key="node", value=None ):
     """
+    IMPORTANT: This action will delete retrons and all of their properties from 
+    the database!
+    
     Remove one or more retrons by a particular **key** and **value**. The default
     key is "node". Value can be a set of conditions using MongoDB query
     comparison operators, e.g., {"$eq":"5"} or {"$in":["3","5","7"]}
@@ -519,7 +528,7 @@ def remove_retrons_by(rdb_handle=None, key="node", value=None ):
     * $eq - Matches values that are equal to a specified value.
     * $ne - Matches all values that are not equal to a specified value.
     * $in - Matches any of the values specified in an array. Sensitive to type.
-    * $nin - Matches none of the values specified in an array. Sensitive to type.
+    * $nin - Matches none of the values specified in an array. Sensitive to type.\
     
     Parameters
     ----------
@@ -622,7 +631,7 @@ def check_new_property(rdb_handle=None, props=None, new_property=False):
     radd_new = props.difference(rdb_props)
     if len(radd_new) > 0 and not new_property:
         raise UnrecognizedPropertyError(radd_new)
-
+        
 
 def format_result(result=None, format="df"):
     """
