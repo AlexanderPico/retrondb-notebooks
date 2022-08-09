@@ -25,7 +25,7 @@ export RETRONDB_PWD='***'
 
 __IMPORTANT: Do not commit or share your .env file and credentials.__
 
-The `.ipynb` notebooks rely on a custom package called `retrondb.py` that provides helper functions tailored for working simply and safely with retronDB. Explore the [documentation for retrondb](html/retrondb-notebooks/retrondb.html).
+The `.ipynb` notebooks rely on a custom package called `retrondb.py` that provides helper functions tailored for working simply and safely with retronDB. Explore the [documentation for retrondb](https://alexanderpico.github.io/retrondb-notebooks/retrondb.html).
 
 
 # Development
