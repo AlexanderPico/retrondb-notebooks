@@ -1,0 +1,1954 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>retrondb-notebooks.retrondb API documentation</title>
+<meta name="description" content="The retrondb module of utility functions for interacting with the retronDB
+database hosted on MongoDB Atlas …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>retrondb-notebooks.retrondb</code></h1>
+</header>
+<section id="section-intro">
+<p>The retrondb module of utility functions for interacting with the retronDB
+database hosted on MongoDB Atlas.</p>
+<p>Usage: import retrondb</p>
+<p>Created on Mon Jul 25 09:58:00 2022
+@author: alexpico</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+The retrondb module of utility functions for interacting with the retronDB
+database hosted on MongoDB Atlas.
+
+Usage: import retrondb
+
+Created on Mon Jul 25 09:58:00 2022
+@author: alexpico
+&#34;&#34;&#34;
+
+import pymongo as pm
+from dotenv import load_dotenv
+from bson import json_util, son
+import re
+import pandas as pd
+import os
+import getpass
+import json
+import functools
+
+#CONSTANTS
+ansiRed = &#34;\033[91m {}\033[00m&#34;
+ansiGreen = &#34;\033[92m {}\033[00m&#34;
+# ansiBlue = &#34;\033[94m {}\033[00m&#34;
+
+
+###############################################################################
+# GENERAL FUNCTIONS
+def connect_retronDB(db_name=&#39;retronDB&#39;):
+    &#34;&#34;&#34;
+    A utility function to connect to the retron databases hosted by MongoDB 
+    Atlas. This function will create a database if it does not already exist,
+    then connects (or creates) a Collection called &#39;retrons&#39; within that 
+    database, and finally returns a ``pymongo.Collections`` obj to serve as a
+    convenient handle for other functions (e.g., **rdb_handle**). 
+    
+    Note that this function will also confirm (or create) a unique index on 
+    the &#34;node&#34; property to prevent duplicate records.
+    
+    Parameters
+    ----------
+    db_name : ``str``, optional
+        Name of the database to connect to, e.g., &#39;sandbox&#39;. Default is the
+        official &#39;retronDB&#39; database.
+    
+    Returns
+    -------
+    Collection obj
+        A retron database collection object intended to be used as the 
+        **rdb_handle** parameter in other functions.
+    
+    &#34;&#34;&#34;
+    
+    # Load config from a .env file or prompt for entries
+    load_dotenv(verbose=True)
+    try:
+        RETRONDB_USR = os.environ[&#39;RETRONDB_USR&#39;]
+    except KeyError:
+        RETRONDB_USR = input(&#34;Enter username:&#34;)
+    try:
+        RETRONDB_PWD = os.environ[&#39;RETRONDB_PWD&#39;]
+    except KeyError:
+        RETRONDB_PWD = getpass.getpass(prompt=&#34;Enter password:&#34;) 
+
+    # Construct MongoClient URI    
+    RETRONDB_URI = str(&#34;mongodb+srv://&#34; +
+    RETRONDB_USR + &#34;:&#34; +
+    RETRONDB_PWD +
+    &#34;@cluster0.uuutrha.mongodb.net/?retryWrites=true&amp;w=majority&#34;)
+
+    # Connect to our MongoDB cluster
+    client = pm.MongoClient(RETRONDB_URI)
+    # print(client.database_names())
+
+    # Get the retronDB
+    db = client[db_name]
+    try:
+        db.list_collection_names()
+    except:
+        print(&#34;\n&#34; + ansiRed.format(&#34;Error&#34;)+&#34;: Failed to connect to &#34; +
+              db_name + &#34;. Check your username and password (or .env file).\n&#34;)
+    else:
+        print(&#34;\n&#34; + ansiGreen.format(&#34;Success&#34;)+&#34;: Connected to &#34;+
+              db_name + &#34; with &#34; + 
+              str(db[&#39;retrons&#39;].count_documents({})) + 
+              &#34; retrons\n&#34; )
+        # Confirm index on node; create if not
+        ind_set = False
+        for rdb_ind in list(db[&#39;retrons&#39;].list_indexes()):
+            if son.SON(rdb_ind[&#39;key&#39;]).to_dict() == {&#39;node&#39;:1}:
+                ind_set = True
+        if not ind_set:
+            db[&#39;retrons&#39;].create_index(&#34;node&#34;, unique=True)
+        # Return the retrons collection
+        return db[&#39;retrons&#39;]
+    
+def save_retronDB(rdb_handle=None, filename=None, overwrite=False):
+    &#34;&#34;&#34;
+    Save the entire retron database to a CSV file in your current working
+    directory (See ``os.getcwd()``). Consider using ``os.chdir()`` to change the
+    destination prior to running this function, or provide a full path as 
+    the **filename** parameter.
+    
+    Also see ``restore_retronDB()`` to recreate a retron database from a saved 
+    file.
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be written. The ``.csv`` extension is 
+        automatically added is missing. 
+    overwrite : ``bool``
+        Whether to allow existing files to be overwritten. Default is False.
+
+    Returns
+    -------
+    str
+        Path to saved retron database file.
+
+    &#34;&#34;&#34;
+    if re.search(&#39;.csv$&#39;, filename) is None: filename += &#39;.csv&#39;
+    if os.path.exists(filename) and not overwrite:
+        raise ProtectedFileError()
+ 
+    rdb_df = get_all_retrons(rdb_handle)
+    rdb_df.to_csv(filename, index=False)
+    print(&#34;Saved retron database.&#34;)
+    return os.path.abspath(filename)
+    
+    
+def restore_retronDB(filename=None, db_name=None):
+    &#34;&#34;&#34;
+    This function will create a new retron database from a previously saved
+    CSV file. See ``save_retronDB()``. The returned pymongo.Collections obj is
+    the same type returned by ``connect_retronDB()`` and is ready to be used in
+    subsequent functions.
+
+    Parameters
+    ----------
+    filename :  ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
+    db_name : ``str``
+        Name of the database to create from file.
+
+    Returns
+    -------
+    Collection obj
+        A retron database collection object intended to be used as the 
+        **rdb_handle** parameter in other functions.
+
+    &#34;&#34;&#34;
+    # connect to new database instance
+    rdb_handle = connect_retronDB(db_name)
+    
+    # load data
+    add_retrons_by_csv(rdb_handle,filename, True) 
+    return rdb_handle
+    
+    
+
+###############################################################################
+# GET FUNCTIONS
+def get_all_retrons(rdb_handle=None, format=&#34;df&#34;):
+    &#34;&#34;&#34;
+    Returns a ``pandas.DataFrame`` of all fields (columns) for all retrons (rows).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    format : ``str``, optional
+        Either &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, or &#34;df&#34; (default)
+    
+    Returns
+    -------
+    str, dict, pandas.DataFrame, or pymongo.Cursor obj
+        Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+        depending on specified format
+    
+    &#34;&#34;&#34;               
+    res = rdb_handle.find()
+    return format_result(res, format)
+    
+    
+def get_retron(rdb_handle=None, node=None, format=&#34;df&#34;):
+    &#34;&#34;&#34;
+    Returns a single retron as either a JSON string, Python dictionary or 
+    Pandas DataFrame (default).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    node : ``str`` or int(automatically coverted to str)
+        Unique retron node ID 
+    format : ``str``, optional
+        Either &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, or &#34;df&#34; (default)
+    
+    Returns
+    -------
+    str, dict, pandas.DataFrame, or pymongo.Cursor obj
+        Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+        depending on specified format
+    
+    &#34;&#34;&#34;
+    res = rdb_handle.find_one({&#34;node&#34;:str(node)})
+    return format_result(res, format)
+
+    
+def get_retrons_by(rdb_handle=None, key=&#34;node&#34;, value=None, format=&#34;df&#34;):
+    &#34;&#34;&#34;
+    Returns one or more retrons by a particular **key** and **value**. The default
+    key is &#34;node&#34;. Value can be a set of conditions using MongoDB query
+    comparison operators, e.g., {&#34;$eq&#34;:&#34;5&#34;} or {&#34;$in&#34;:[&#34;3&#34;,&#34;5&#34;,&#34;7&#34;]}
+        
+    https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/
+    
+    * $eq - Matches values that are equal to a specified value.
+    * $ne - Matches all values that are not equal to a specified value.
+    * $in - Matches any of the values specified in an array. Sensitive to type.
+    * $nin - Matches none of the values specified in an array. Sensitive to type.
+    
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    key : ``str``, optional
+        Property key or name, e.g., &#34;genus&#34;
+    value : ``str``, ``int``, ``float`` or ``set``
+        Propery value, e.g., &#34;Escherichia&#34; or set of conditions, e.g., {&#34;$gt&#34;:5}
+    format : ``str``, optional
+        Either &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, or &#34;df&#34; (default)
+    
+    Returns
+    -------
+    str, dict, pandas.DataFrame, or pymongo.Cursor obj
+        Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+        depending on specified format
+    
+    &#34;&#34;&#34;     
+    if isinstance(value, list):
+        raise TypeError (&#34;Sorry, more than one value is not supported.&#34; +
+                         &#34; Consider using the set syntax with comparison&#34; +
+                         &#34; operators.&#34;)
+        
+    if key == &#34;node&#34; and isinstance(value, int):
+        value = str(value)
+        
+    res = rdb_handle.find({str(key):value})
+    return format_result(res, format)
+
+
+###############################################################################
+# ADD FUNCTIONS
+def add_retron(rdb_handle=None, retron_dict=None, new_property=False):
+    &#34;&#34;&#34;
+    Add a single retron given a dictionary. The ``dict`` must include a unique
+    identifier key called &#34;node&#34; with a string-encoded integer, e.g., &#34;node&#34;:&#34;0&#34;.
+    
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    retron_dict : ``dict``
+        A dictionary with retron data
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.
+
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of added retron properties.
+
+    &#34;&#34;&#34;
+    radd_props = set(retron_dict.keys())
+    if &#34;node&#34; not in radd_props:
+        # SKIP: assigning new node ID if missing; might be too dangerous?
+        # res = rdb_handle.find().sort(&#34;node&#34;, -1)
+        # max_node = format_result(res[0], &#34;df&#34;)[&#39;node&#39;][0]
+        # retron_dict[&#39;node&#39;] = str(int(max_node) +1)
+        # print(&#34;Assigning unique node ID...\n&#34;)
+        raise MissingKeyError()
+    else:
+        # force string values for node IDs
+        retron_dict[&#39;node&#39;] = str(retron_dict[&#39;node&#39;])
+        # &#34;node&#34; is indexed so, duplicates will be caught automatically
+       
+    check_new_property(rdb_handle, radd_props, new_property)
+    
+    try:
+        radd_obj = rdb_handle.insert_one(retron_dict)
+    except pm.errors.DuplicateKeyError:
+        print(ansiRed.format(&#34;DuplicateKeyError&#34;)+&#34;: \&#34;&#34; +
+          retron_dict[&#39;node&#39;] + &#34;\&#34; A retron with this&#34; +
+              &#34; same node ID already exists in the database. Either&#34; +
+              &#34; change the node ID&#34;+
+              &#34; or consider using update_retron().&#34;)
+    except Exception as e:
+        print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to add retron.\n&#34;, e)
+    else:
+        radd_id = radd_obj.inserted_id
+        print(&#34;Added retron to the database.&#34;)
+        radd_res = rdb_handle.find_one({&#34;_id&#34;:radd_id})
+        return format_result(radd_res)
+        
+
+
+def add_retrons_by_csv(rdb_handle=None, filename=None, new_property=False):
+    &#34;&#34;&#34;
+    Add one or more retrons given a CSV file. There must be
+    a unique integer identifier for each row in a column named &#34;node&#34;.
+    
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.
+
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of added retron properties.
+
+    &#34;&#34;&#34;
+    ret_df = read_retron_csv(rdb_handle=rdb_handle, filename=filename)
+    radd_props = set(ret_df.columns)
+    check_new_property(rdb_handle, radd_props, new_property)
+    
+    # DF to dict
+    ret_js = ret_df.to_json(orient=&#39;records&#39;)
+    ret_dict = json.loads(ret_js)
+    try:
+        radd_obj = rdb_handle.insert_many(ret_dict)
+    except pm.errors.BulkWriteError as e:
+        # identify if any retrons were inserted prior to error
+        num_inserted = e.details[&#39;nInserted&#39;]
+        radd_ids = [ ret[&#39;_id&#39;] for ret in ret_dict[:num_inserted]]
+        if &#34;duplicate key error&#34; in e.args[0]:
+            print(ansiRed.format(&#34;DuplicateKeyError&#34;)+&#34;: \&#34;&#34; +
+              ret_dict[num_inserted][&#39;node&#39;] + &#34;\&#34; A retron with this&#34; +
+              &#34; same node ID already exists in the database. Either&#34; +
+              &#34; change the node ID&#34;+
+              &#34; or consider using update_retrons_by_csv().\n&#34;)
+        else:
+            print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to add retrons.\n&#34;, e)
+    except Exception as e:
+        print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to add retrons.\n&#34;, e)
+    else:
+        radd_ids = radd_obj.inserted_ids
+    finally:
+        if len(radd_ids) &gt; 0:
+            print(&#34;Added retrons to the database.&#34;)
+        radd_res = rdb_handle.find({&#34;_id&#34;:{&#34;$in&#34;:radd_ids}})
+        return format_result(radd_res)
+    
+###############################################################################
+# UPDATE FUNCTIONS
+
+def update_retron(rdb_handle=None, retron_dict=None, new_property=False):
+    &#34;&#34;&#34;
+    Update an existing retron given a dictionaty. The ``dict`` must include a unique
+    identifier key called &#34;node&#34; with a string-encoded integer, e.g., &#34;node&#34;:&#34;0&#34;.
+    
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    retron_dict : ``dict``
+        A dictionary with retron data
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.
+    add : ``bool``, optional
+        Whether to add new retrons if not previously entered.
+
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of added retron properties.
+
+    &#34;&#34;&#34;
+    rupd_props = set(retron_dict.keys())
+    if &#34;node&#34; not in rupd_props:
+        raise MissingKeyError()
+    else:
+        # force string values for node IDs
+        retron_dict[&#39;node&#39;] = str(retron_dict[&#39;node&#39;])
+       
+    check_new_property(rdb_handle, rupd_props, new_property)
+    
+    # Get node list for update keys
+    rupd_node = str(retron_dict[&#39;node&#39;])
+    try:
+        rdb_handle.update_one({&#34;node&#34;:rupd_node},{&#34;$set&#34;:retron_dict})
+    except Exception as e:
+        print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to update retron.\n&#34;, e)
+    else:
+        print(&#34;Updated retron in the database.&#34;)
+        rupd_res = rdb_handle.find({&#34;node&#34;:{&#34;$eq&#34;:rupd_node}})
+        return format_result(rupd_res)
+
+def update_retrons_by_csv(rdb_handle=None, filename=None, new_property=False, add=False):
+    &#34;&#34;&#34;
+    Update one or more existing retrons given a CSV file. There must be
+    a unique integer identifier for each row in a column named &#34;node&#34;.
+
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+    
+    Only pre-existing retrons will be updated. Rows pertaining to new retrons
+    will be ignored unless **add**=True.
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.
+    add : ``bool``, optional
+        Whether to add new retrons if not previously entered.
+            
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of added retron properties.
+
+    &#34;&#34;&#34;
+    ret_df = read_retron_csv(rdb_handle=rdb_handle, filename=filename)
+    rupd_props = set(ret_df.columns)
+    check_new_property(rdb_handle, rupd_props, new_property)
+    
+    #DF to dict
+    ret_js = ret_df.to_json(orient=&#39;records&#39;)
+    ret_dict_list = json.loads(ret_js)
+    # Get node list for update keys
+    for retron_dict in ret_dict_list:
+        rupd_node = str(retron_dict[&#39;node&#39;])
+        try:
+            rdb_handle.update_one({&#34;node&#34;:rupd_node},{&#34;$set&#34;:retron_dict},
+                                  upsert=add)
+        except Exception as e:
+            print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to update retrons.\n&#34;, e)
+    print(&#34;Updated retrons in the database.&#34;)
+    rupd_nodes = list(ret_df[&#39;node&#39;])
+    rupd_res = rdb_handle.find({&#34;node&#34;:{&#34;$in&#34;:rupd_nodes}})
+    return format_result(rupd_res)
+
+    
+
+###############################################################################
+# REMOVE FUNCTIONS
+def remove_retron(rdb_handle=None, node=None):
+    &#34;&#34;&#34;
+    IMPORTANT: This action will delete a retron and all of its properties from 
+    the database!
+
+    Remove a retron given its node identifier. 
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    node : ``str`` or ``int`` (automatically converted to ``str``)
+        A single retron node ID
+
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of removed retron properties. Last chance to recover deleted 
+        data!
+
+    &#34;&#34;&#34;
+    if isinstance(node, list):
+        raise TypeError (&#34;\&#34;node\&#34; should be a single string. Make a loop if&#34; + 
+                         &#34; you have a list, or consider using &#34; +
+                         &#34; remove_retrons_by() with the set syntax.&#34;)
+
+    gone = get_retron(rdb_handle, node)
+    rdb_handle.delete_one({&#34;node&#34;:str(node)})
+    print(&#34;Removed a retron from the database.&#34;)
+    return gone
+    
+    
+def remove_retrons_by(rdb_handle=None, key=&#34;node&#34;, value=None ):
+    &#34;&#34;&#34;
+    IMPORTANT: This action will delete retrons and all of their properties from 
+    the database!
+    
+    Remove one or more retrons by a particular **key** and **value**. The default
+    key is &#34;node&#34;. Value can be a set of conditions using MongoDB query
+    comparison operators, e.g., {&#34;$eq&#34;:&#34;5&#34;} or {&#34;$in&#34;:[&#34;3&#34;,&#34;5&#34;,&#34;7&#34;]}
+        
+    https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/
+    
+    * $eq - Matches values that are equal to a specified value.
+    * $ne - Matches all values that are not equal to a specified value.
+    * $in - Matches any of the values specified in an array. Sensitive to type.
+    * $nin - Matches none of the values specified in an array. Sensitive to type.\
+    
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    key : ``str``, optional
+        Property key or name, e.g., &#34;genus&#34;
+    value : ``str``, ``int``, ``float`` or ``set``
+        Propery value, e.g., &#34;Escherichia&#34; or set of conditions, e.g., {&#34;$gt&#34;:5}
+    
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of removed retrons and their properties. Last chance to 
+        recover deleted data!
+
+    &#34;&#34;&#34;
+    if isinstance(value, list):
+        raise TypeError (&#34;Sorry, more than one value is not supported.&#34; +
+                         &#34; Consider using the set syntax with comparison&#34; +
+                         &#34; operators.&#34;)
+        
+    if key == &#34;node&#34; and isinstance(value, int):
+        value = str(value)
+        
+    gone = get_retrons_by(rdb_handle, key, value)
+    rdb_handle.delete_many({str(key):value})
+    print(&#34;Removed retrons from the database.&#34;)
+    return gone
+    
+    
+###############################################################################
+# INTERNAL FUNCTIONS
+def read_retron_csv(rdb_handle=None, filename=None):
+    &#34;&#34;&#34;
+    Read, clean and validate retron data from a CSV file. There must be
+    a unique integer identifier for each row in a column named &#34;node&#34;.
+    
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
+        
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of cleaned and validated csv data
+
+    &#34;&#34;&#34;
+    if re.search(&#39;.csv$&#39;, filename) is None: filename += &#39;.csv&#39;  
+    ret_df = pd.read_csv(filename, dtype=str)
+    ret_cols = ret_df.columns
+    
+    # Drop &#34;_id&#34; if present (e.g., from backup file)
+    if &#34;_id&#34; in ret_cols:
+        ret_df = ret_df.drop(&#39;_id&#39;,1)
+    
+    # Check node IDs
+    if &#34;node&#34; not in ret_cols:
+       raise MissingKeyError(&#34;There must be a \&#34;node\&#34; column.&#34;)
+    ret_df = ret_df[ret_df[&#39;node&#39;]&gt;=&#34;0&#34;]
+    
+    # Strip leading and trailing blanks
+    ret_df = ret_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+    
+    return ret_df
+    
+def check_new_property(rdb_handle=None, props=None, new_property=False):
+    &#34;&#34;&#34;
+    Check incoming properties against existing properties in retron database.
+    If new_property is False (default), then novel properties will be rejected.
+    
+    This check is intended to help protect against inserting typos and other
+    unintended property names into the database.
+    
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+        
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.  
+        
+    Returns
+    -------
+    None
+    
+    &#34;&#34;&#34;
+    rdb_props = functools.reduce( lambda all_keys, rec_keys: all_keys | set(rec_keys), map(lambda d: d.keys(), rdb_handle.find()), set() )
+    radd_new = props.difference(rdb_props)
+    if len(radd_new) &gt; 0 and not new_property:
+        raise UnrecognizedPropertyError(radd_new)
+        
+
+def format_result(result=None, format=&#34;df&#34;):
+    &#34;&#34;&#34;
+    Transform one or more retronDB query results into useful formats. Takes 
+    either a singular dictionary result or ``pymongo.Cursor`` results as input. 
+    Returns eiter raw, JSON, dictionary or ``pandas.DataFrame`` (default).
+
+    Parameters
+    ----------
+    result : ``dict`` or ``pymongo.Cursor``
+        Represents the result of pymongo.find() or .find_one()
+    format : ``str``, optional
+        Either &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, or &#34;df&#34; (default)
+
+    Returns
+    -------
+    str, dict, pandas.DataFrame, or pymongo.Cursor obj
+        Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+        depending on specified format
+
+    &#34;&#34;&#34;
+    format = format.lower()
+    if format not in [&#34;raw&#34;,&#34;json&#34;,&#34;dict&#34;,&#34;df&#34;]:
+        raise ValueError (&#39;format must be &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, &#34;df&#34; or empty&#39;)
+        
+    # Easy case
+    if format == &#34;raw&#34;:
+        return result
+      
+    # Return in desired format
+    if format == &#34;json&#34;:
+        return json_util.dumps(result)
+    elif format == &#34;dict&#34;:
+        return json.loads(json_util.dumps(result))
+    else: #DataFrame. This one is finicky
+        # Check: dict or Cursor?
+        res = None
+        if isinstance(result, dict):
+            res = [result]
+        else:
+            # Check: single or multiple results
+            if len(list(result.clone())) &lt; 2:
+                res = [result.clone()][0]
+            else:
+                res = list(result.clone())
+        return pd.DataFrame(res)
+
+###############
+# CLASSES
+
+class MissingKeyError(ValueError):
+    &#39;&#39;&#39;When the node ID key is missing from incoming retron data&#39;&#39;&#39;
+    def __init__(self, message=&#39;Please provide a node ID&#39;):
+        self.message = message
+        super().__init__(self.message)
+
+
+class UnrecognizedPropertyError(ValueError):
+    &#39;&#39;&#39;When a new property is found in incoming retron data&#39;&#39;&#39;
+    def __init__(self, new_props, message=&#39;Failed to add or update retron. &#39;+
+                  &#34;\nOne or more unrecognized properties detected:\n\n&#34;):
+        self.message = message
+        for n in new_props:
+            self.message += &#34;\t&#34;+n+&#34;\n&#34;
+        self.message += &#34;\nDouble check your property names or consider setting new_property=True&#34;
+        super().__init__(self.message)
+        
+class ProtectedFileError(ValueError):
+    &#39;&#39;&#39;When a file already exists. Overwrite is not allowed.&#39;&#39;&#39;
+    def __init__(self, message=&#34;This file already exists and cannot be&#34; +
+                 &#34; overwritten with this function. Consider using a new&#34; +
+                 &#34; filename.&#34;):
+        self.message = message
+        super().__init__(self.message)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="retrondb-notebooks.retrondb.add_retron"><code class="name flex">
+<span>def <span class="ident">add_retron</span></span>(<span>rdb_handle=None, retron_dict=None, new_property=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a single retron given a dictionary. The <code>dict</code> must include a unique
+identifier key called "node" with a string-encoded integer, e.g., "node":"0".</p>
+<p>All properties will be checked against current database properties. By
+default, unrecognized properties will be rejected (see <strong>new_property</strong> parameter).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>retron_dict</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary with retron data</dd>
+<dt><strong><code>new_property</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to accept novel properties. Default is <code>False</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pandas.DataFrame </code></dt>
+<dd>DataFrame of added retron properties.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_retron(rdb_handle=None, retron_dict=None, new_property=False):
+    &#34;&#34;&#34;
+    Add a single retron given a dictionary. The ``dict`` must include a unique
+    identifier key called &#34;node&#34; with a string-encoded integer, e.g., &#34;node&#34;:&#34;0&#34;.
+    
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    retron_dict : ``dict``
+        A dictionary with retron data
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.
+
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of added retron properties.
+
+    &#34;&#34;&#34;
+    radd_props = set(retron_dict.keys())
+    if &#34;node&#34; not in radd_props:
+        # SKIP: assigning new node ID if missing; might be too dangerous?
+        # res = rdb_handle.find().sort(&#34;node&#34;, -1)
+        # max_node = format_result(res[0], &#34;df&#34;)[&#39;node&#39;][0]
+        # retron_dict[&#39;node&#39;] = str(int(max_node) +1)
+        # print(&#34;Assigning unique node ID...\n&#34;)
+        raise MissingKeyError()
+    else:
+        # force string values for node IDs
+        retron_dict[&#39;node&#39;] = str(retron_dict[&#39;node&#39;])
+        # &#34;node&#34; is indexed so, duplicates will be caught automatically
+       
+    check_new_property(rdb_handle, radd_props, new_property)
+    
+    try:
+        radd_obj = rdb_handle.insert_one(retron_dict)
+    except pm.errors.DuplicateKeyError:
+        print(ansiRed.format(&#34;DuplicateKeyError&#34;)+&#34;: \&#34;&#34; +
+          retron_dict[&#39;node&#39;] + &#34;\&#34; A retron with this&#34; +
+              &#34; same node ID already exists in the database. Either&#34; +
+              &#34; change the node ID&#34;+
+              &#34; or consider using update_retron().&#34;)
+    except Exception as e:
+        print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to add retron.\n&#34;, e)
+    else:
+        radd_id = radd_obj.inserted_id
+        print(&#34;Added retron to the database.&#34;)
+        radd_res = rdb_handle.find_one({&#34;_id&#34;:radd_id})
+        return format_result(radd_res)</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.add_retrons_by_csv"><code class="name flex">
+<span>def <span class="ident">add_retrons_by_csv</span></span>(<span>rdb_handle=None, filename=None, new_property=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add one or more retrons given a CSV file. There must be
+a unique integer identifier for each row in a column named "node".</p>
+<p>All properties will be checked against current database properties. By
+default, unrecognized properties will be rejected (see <strong>new_property</strong> parameter).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Full path or path relavtive to current working directory, in addition
+to the name of the file to be read. The <code>.csv</code> extension is
+automatically added is missing.</dd>
+<dt><strong><code>new_property</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to accept novel properties. Default is <code>False</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pandas.DataFrame </code></dt>
+<dd>DataFrame of added retron properties.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_retrons_by_csv(rdb_handle=None, filename=None, new_property=False):
+    &#34;&#34;&#34;
+    Add one or more retrons given a CSV file. There must be
+    a unique integer identifier for each row in a column named &#34;node&#34;.
+    
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.
+
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of added retron properties.
+
+    &#34;&#34;&#34;
+    ret_df = read_retron_csv(rdb_handle=rdb_handle, filename=filename)
+    radd_props = set(ret_df.columns)
+    check_new_property(rdb_handle, radd_props, new_property)
+    
+    # DF to dict
+    ret_js = ret_df.to_json(orient=&#39;records&#39;)
+    ret_dict = json.loads(ret_js)
+    try:
+        radd_obj = rdb_handle.insert_many(ret_dict)
+    except pm.errors.BulkWriteError as e:
+        # identify if any retrons were inserted prior to error
+        num_inserted = e.details[&#39;nInserted&#39;]
+        radd_ids = [ ret[&#39;_id&#39;] for ret in ret_dict[:num_inserted]]
+        if &#34;duplicate key error&#34; in e.args[0]:
+            print(ansiRed.format(&#34;DuplicateKeyError&#34;)+&#34;: \&#34;&#34; +
+              ret_dict[num_inserted][&#39;node&#39;] + &#34;\&#34; A retron with this&#34; +
+              &#34; same node ID already exists in the database. Either&#34; +
+              &#34; change the node ID&#34;+
+              &#34; or consider using update_retrons_by_csv().\n&#34;)
+        else:
+            print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to add retrons.\n&#34;, e)
+    except Exception as e:
+        print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to add retrons.\n&#34;, e)
+    else:
+        radd_ids = radd_obj.inserted_ids
+    finally:
+        if len(radd_ids) &gt; 0:
+            print(&#34;Added retrons to the database.&#34;)
+        radd_res = rdb_handle.find({&#34;_id&#34;:{&#34;$in&#34;:radd_ids}})
+        return format_result(radd_res)</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.check_new_property"><code class="name flex">
+<span>def <span class="ident">check_new_property</span></span>(<span>rdb_handle=None, props=None, new_property=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check incoming properties against existing properties in retron database.
+If new_property is False (default), then novel properties will be rejected.</p>
+<p>This check is intended to help protect against inserting typos and other
+unintended property names into the database.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>new_property</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to accept novel properties. Default is <code>False</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_new_property(rdb_handle=None, props=None, new_property=False):
+    &#34;&#34;&#34;
+    Check incoming properties against existing properties in retron database.
+    If new_property is False (default), then novel properties will be rejected.
+    
+    This check is intended to help protect against inserting typos and other
+    unintended property names into the database.
+    
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+        
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.  
+        
+    Returns
+    -------
+    None
+    
+    &#34;&#34;&#34;
+    rdb_props = functools.reduce( lambda all_keys, rec_keys: all_keys | set(rec_keys), map(lambda d: d.keys(), rdb_handle.find()), set() )
+    radd_new = props.difference(rdb_props)
+    if len(radd_new) &gt; 0 and not new_property:
+        raise UnrecognizedPropertyError(radd_new)</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.connect_retronDB"><code class="name flex">
+<span>def <span class="ident">connect_retronDB</span></span>(<span>db_name='retronDB')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A utility function to connect to the retron databases hosted by MongoDB
+Atlas. This function will create a database if it does not already exist,
+then connects (or creates) a Collection called 'retrons' within that
+database, and finally returns a <code>pymongo.Collections</code> obj to serve as a
+convenient handle for other functions (e.g., <strong>rdb_handle</strong>). </p>
+<p>Note that this function will also confirm (or create) a unique index on
+the "node" property to prevent duplicate records.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>db_name</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Name of the database to connect to, e.g., 'sandbox'. Default is the
+official 'retronDB' database.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Collection obj</code></dt>
+<dd>A retron database collection object intended to be used as the
+<strong>rdb_handle</strong> parameter in other functions.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def connect_retronDB(db_name=&#39;retronDB&#39;):
+    &#34;&#34;&#34;
+    A utility function to connect to the retron databases hosted by MongoDB 
+    Atlas. This function will create a database if it does not already exist,
+    then connects (or creates) a Collection called &#39;retrons&#39; within that 
+    database, and finally returns a ``pymongo.Collections`` obj to serve as a
+    convenient handle for other functions (e.g., **rdb_handle**). 
+    
+    Note that this function will also confirm (or create) a unique index on 
+    the &#34;node&#34; property to prevent duplicate records.
+    
+    Parameters
+    ----------
+    db_name : ``str``, optional
+        Name of the database to connect to, e.g., &#39;sandbox&#39;. Default is the
+        official &#39;retronDB&#39; database.
+    
+    Returns
+    -------
+    Collection obj
+        A retron database collection object intended to be used as the 
+        **rdb_handle** parameter in other functions.
+    
+    &#34;&#34;&#34;
+    
+    # Load config from a .env file or prompt for entries
+    load_dotenv(verbose=True)
+    try:
+        RETRONDB_USR = os.environ[&#39;RETRONDB_USR&#39;]
+    except KeyError:
+        RETRONDB_USR = input(&#34;Enter username:&#34;)
+    try:
+        RETRONDB_PWD = os.environ[&#39;RETRONDB_PWD&#39;]
+    except KeyError:
+        RETRONDB_PWD = getpass.getpass(prompt=&#34;Enter password:&#34;) 
+
+    # Construct MongoClient URI    
+    RETRONDB_URI = str(&#34;mongodb+srv://&#34; +
+    RETRONDB_USR + &#34;:&#34; +
+    RETRONDB_PWD +
+    &#34;@cluster0.uuutrha.mongodb.net/?retryWrites=true&amp;w=majority&#34;)
+
+    # Connect to our MongoDB cluster
+    client = pm.MongoClient(RETRONDB_URI)
+    # print(client.database_names())
+
+    # Get the retronDB
+    db = client[db_name]
+    try:
+        db.list_collection_names()
+    except:
+        print(&#34;\n&#34; + ansiRed.format(&#34;Error&#34;)+&#34;: Failed to connect to &#34; +
+              db_name + &#34;. Check your username and password (or .env file).\n&#34;)
+    else:
+        print(&#34;\n&#34; + ansiGreen.format(&#34;Success&#34;)+&#34;: Connected to &#34;+
+              db_name + &#34; with &#34; + 
+              str(db[&#39;retrons&#39;].count_documents({})) + 
+              &#34; retrons\n&#34; )
+        # Confirm index on node; create if not
+        ind_set = False
+        for rdb_ind in list(db[&#39;retrons&#39;].list_indexes()):
+            if son.SON(rdb_ind[&#39;key&#39;]).to_dict() == {&#39;node&#39;:1}:
+                ind_set = True
+        if not ind_set:
+            db[&#39;retrons&#39;].create_index(&#34;node&#34;, unique=True)
+        # Return the retrons collection
+        return db[&#39;retrons&#39;]</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.format_result"><code class="name flex">
+<span>def <span class="ident">format_result</span></span>(<span>result=None, format='df')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Transform one or more retronDB query results into useful formats. Takes
+either a singular dictionary result or <code>pymongo.Cursor</code> results as input.
+Returns eiter raw, JSON, dictionary or <code>pandas.DataFrame</code> (default).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>result</code></strong> :&ensp;<code>dict</code> or <code>pymongo.Cursor</code></dt>
+<dd>Represents the result of pymongo.find() or .find_one()</dd>
+<dt><strong><code>format</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Either "raw", "json", "dict", or "df" (default)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str, dict, pandas.DataFrame,</code> or <code>pymongo.Cursor obj</code></dt>
+<dd>Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+depending on specified format</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def format_result(result=None, format=&#34;df&#34;):
+    &#34;&#34;&#34;
+    Transform one or more retronDB query results into useful formats. Takes 
+    either a singular dictionary result or ``pymongo.Cursor`` results as input. 
+    Returns eiter raw, JSON, dictionary or ``pandas.DataFrame`` (default).
+
+    Parameters
+    ----------
+    result : ``dict`` or ``pymongo.Cursor``
+        Represents the result of pymongo.find() or .find_one()
+    format : ``str``, optional
+        Either &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, or &#34;df&#34; (default)
+
+    Returns
+    -------
+    str, dict, pandas.DataFrame, or pymongo.Cursor obj
+        Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+        depending on specified format
+
+    &#34;&#34;&#34;
+    format = format.lower()
+    if format not in [&#34;raw&#34;,&#34;json&#34;,&#34;dict&#34;,&#34;df&#34;]:
+        raise ValueError (&#39;format must be &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, &#34;df&#34; or empty&#39;)
+        
+    # Easy case
+    if format == &#34;raw&#34;:
+        return result
+      
+    # Return in desired format
+    if format == &#34;json&#34;:
+        return json_util.dumps(result)
+    elif format == &#34;dict&#34;:
+        return json.loads(json_util.dumps(result))
+    else: #DataFrame. This one is finicky
+        # Check: dict or Cursor?
+        res = None
+        if isinstance(result, dict):
+            res = [result]
+        else:
+            # Check: single or multiple results
+            if len(list(result.clone())) &lt; 2:
+                res = [result.clone()][0]
+            else:
+                res = list(result.clone())
+        return pd.DataFrame(res)</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.get_all_retrons"><code class="name flex">
+<span>def <span class="ident">get_all_retrons</span></span>(<span>rdb_handle=None, format='df')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a <code>pandas.DataFrame</code> of all fields (columns) for all retrons (rows).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>format</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Either "raw", "json", "dict", or "df" (default)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str, dict, pandas.DataFrame,</code> or <code>pymongo.Cursor obj</code></dt>
+<dd>Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+depending on specified format</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_retrons(rdb_handle=None, format=&#34;df&#34;):
+    &#34;&#34;&#34;
+    Returns a ``pandas.DataFrame`` of all fields (columns) for all retrons (rows).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    format : ``str``, optional
+        Either &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, or &#34;df&#34; (default)
+    
+    Returns
+    -------
+    str, dict, pandas.DataFrame, or pymongo.Cursor obj
+        Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+        depending on specified format
+    
+    &#34;&#34;&#34;               
+    res = rdb_handle.find()
+    return format_result(res, format)</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.get_retron"><code class="name flex">
+<span>def <span class="ident">get_retron</span></span>(<span>rdb_handle=None, node=None, format='df')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a single retron as either a JSON string, Python dictionary or
+Pandas DataFrame (default).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>node</code></strong> :&ensp;<code>str</code> or <code>int(automatically coverted to str)</code></dt>
+<dd>Unique retron node ID</dd>
+<dt><strong><code>format</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Either "raw", "json", "dict", or "df" (default)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str, dict, pandas.DataFrame,</code> or <code>pymongo.Cursor obj</code></dt>
+<dd>Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+depending on specified format</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_retron(rdb_handle=None, node=None, format=&#34;df&#34;):
+    &#34;&#34;&#34;
+    Returns a single retron as either a JSON string, Python dictionary or 
+    Pandas DataFrame (default).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    node : ``str`` or int(automatically coverted to str)
+        Unique retron node ID 
+    format : ``str``, optional
+        Either &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, or &#34;df&#34; (default)
+    
+    Returns
+    -------
+    str, dict, pandas.DataFrame, or pymongo.Cursor obj
+        Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+        depending on specified format
+    
+    &#34;&#34;&#34;
+    res = rdb_handle.find_one({&#34;node&#34;:str(node)})
+    return format_result(res, format)</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.get_retrons_by"><code class="name flex">
+<span>def <span class="ident">get_retrons_by</span></span>(<span>rdb_handle=None, key='node', value=None, format='df')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns one or more retrons by a particular <strong>key</strong> and <strong>value</strong>. The default
+key is "node". Value can be a set of conditions using MongoDB query
+comparison operators, e.g., {"$eq":"5"} or {"$in":["3","5","7"]}</p>
+<p><a href="https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/">https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/</a></p>
+<ul>
+<li>$eq - Matches values that are equal to a specified value.</li>
+<li>$ne - Matches all values that are not equal to a specified value.</li>
+<li>$in - Matches any of the values specified in an array. Sensitive to type.</li>
+<li>$nin - Matches none of the values specified in an array. Sensitive to type.</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>key</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Property key or name, e.g., "genus"</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str``, ``int``, ``float</code> or <code>set</code></dt>
+<dd>Propery value, e.g., "Escherichia" or set of conditions, e.g., {"$gt":5}</dd>
+<dt><strong><code>format</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Either "raw", "json", "dict", or "df" (default)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str, dict, pandas.DataFrame,</code> or <code>pymongo.Cursor obj</code></dt>
+<dd>Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+depending on specified format</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_retrons_by(rdb_handle=None, key=&#34;node&#34;, value=None, format=&#34;df&#34;):
+    &#34;&#34;&#34;
+    Returns one or more retrons by a particular **key** and **value**. The default
+    key is &#34;node&#34;. Value can be a set of conditions using MongoDB query
+    comparison operators, e.g., {&#34;$eq&#34;:&#34;5&#34;} or {&#34;$in&#34;:[&#34;3&#34;,&#34;5&#34;,&#34;7&#34;]}
+        
+    https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/
+    
+    * $eq - Matches values that are equal to a specified value.
+    * $ne - Matches all values that are not equal to a specified value.
+    * $in - Matches any of the values specified in an array. Sensitive to type.
+    * $nin - Matches none of the values specified in an array. Sensitive to type.
+    
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    key : ``str``, optional
+        Property key or name, e.g., &#34;genus&#34;
+    value : ``str``, ``int``, ``float`` or ``set``
+        Propery value, e.g., &#34;Escherichia&#34; or set of conditions, e.g., {&#34;$gt&#34;:5}
+    format : ``str``, optional
+        Either &#34;raw&#34;, &#34;json&#34;, &#34;dict&#34;, or &#34;df&#34; (default)
+    
+    Returns
+    -------
+    str, dict, pandas.DataFrame, or pymongo.Cursor obj
+        Retron properties as JSON (str), dictionary, DataFrame, or Cursor
+        depending on specified format
+    
+    &#34;&#34;&#34;     
+    if isinstance(value, list):
+        raise TypeError (&#34;Sorry, more than one value is not supported.&#34; +
+                         &#34; Consider using the set syntax with comparison&#34; +
+                         &#34; operators.&#34;)
+        
+    if key == &#34;node&#34; and isinstance(value, int):
+        value = str(value)
+        
+    res = rdb_handle.find({str(key):value})
+    return format_result(res, format)</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.read_retron_csv"><code class="name flex">
+<span>def <span class="ident">read_retron_csv</span></span>(<span>rdb_handle=None, filename=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read, clean and validate retron data from a CSV file. There must be
+a unique integer identifier for each row in a column named "node".</p>
+<p>All properties will be checked against current database properties. By
+default, unrecognized properties will be rejected (see <strong>new_property</strong> parameter).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Full path or path relavtive to current working directory, in addition
+to the name of the file to be read. The <code>.csv</code> extension is
+automatically added is missing.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pandas.DataFrame </code></dt>
+<dd>DataFrame of cleaned and validated csv data</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_retron_csv(rdb_handle=None, filename=None):
+    &#34;&#34;&#34;
+    Read, clean and validate retron data from a CSV file. There must be
+    a unique integer identifier for each row in a column named &#34;node&#34;.
+    
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
+        
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of cleaned and validated csv data
+
+    &#34;&#34;&#34;
+    if re.search(&#39;.csv$&#39;, filename) is None: filename += &#39;.csv&#39;  
+    ret_df = pd.read_csv(filename, dtype=str)
+    ret_cols = ret_df.columns
+    
+    # Drop &#34;_id&#34; if present (e.g., from backup file)
+    if &#34;_id&#34; in ret_cols:
+        ret_df = ret_df.drop(&#39;_id&#39;,1)
+    
+    # Check node IDs
+    if &#34;node&#34; not in ret_cols:
+       raise MissingKeyError(&#34;There must be a \&#34;node\&#34; column.&#34;)
+    ret_df = ret_df[ret_df[&#39;node&#39;]&gt;=&#34;0&#34;]
+    
+    # Strip leading and trailing blanks
+    ret_df = ret_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+    
+    return ret_df</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.remove_retron"><code class="name flex">
+<span>def <span class="ident">remove_retron</span></span>(<span>rdb_handle=None, node=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>IMPORTANT: This action will delete a retron and all of its properties from
+the database!</p>
+<p>Remove a retron given its node identifier. </p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>node</code></strong> :&ensp;<code>str</code> or <code><code>int&lt;/code&gt; (automatically converted to &lt;code&gt;str&lt;/code&gt;)</code></dt>
+<dd>A single retron node ID</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pandas.DataFrame </code></dt>
+<dd>DataFrame of removed retron properties. Last chance to recover deleted
+data!</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_retron(rdb_handle=None, node=None):
+    &#34;&#34;&#34;
+    IMPORTANT: This action will delete a retron and all of its properties from 
+    the database!
+
+    Remove a retron given its node identifier. 
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    node : ``str`` or ``int`` (automatically converted to ``str``)
+        A single retron node ID
+
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of removed retron properties. Last chance to recover deleted 
+        data!
+
+    &#34;&#34;&#34;
+    if isinstance(node, list):
+        raise TypeError (&#34;\&#34;node\&#34; should be a single string. Make a loop if&#34; + 
+                         &#34; you have a list, or consider using &#34; +
+                         &#34; remove_retrons_by() with the set syntax.&#34;)
+
+    gone = get_retron(rdb_handle, node)
+    rdb_handle.delete_one({&#34;node&#34;:str(node)})
+    print(&#34;Removed a retron from the database.&#34;)
+    return gone</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.remove_retrons_by"><code class="name flex">
+<span>def <span class="ident">remove_retrons_by</span></span>(<span>rdb_handle=None, key='node', value=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>IMPORTANT: This action will delete retrons and all of their properties from
+the database!</p>
+<p>Remove one or more retrons by a particular <strong>key</strong> and <strong>value</strong>. The default
+key is "node". Value can be a set of conditions using MongoDB query
+comparison operators, e.g., {"$eq":"5"} or {"$in":["3","5","7"]}</p>
+<p><a href="https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/">https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/</a></p>
+<ul>
+<li>$eq - Matches values that are equal to a specified value.</li>
+<li>$ne - Matches all values that are not equal to a specified value.</li>
+<li>$in - Matches any of the values specified in an array. Sensitive to type.</li>
+<li>$nin - Matches none of the values specified in an array. Sensitive to type.
+<br>
+Parameters</li>
+</ul>
+<hr>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>key</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Property key or name, e.g., "genus"</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str``, ``int``, ``float</code> or <code>set</code></dt>
+<dd>Propery value, e.g., "Escherichia" or set of conditions, e.g., {"$gt":5}</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pandas.DataFrame </code></dt>
+<dd>DataFrame of removed retrons and their properties. Last chance to
+recover deleted data!</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_retrons_by(rdb_handle=None, key=&#34;node&#34;, value=None ):
+    &#34;&#34;&#34;
+    IMPORTANT: This action will delete retrons and all of their properties from 
+    the database!
+    
+    Remove one or more retrons by a particular **key** and **value**. The default
+    key is &#34;node&#34;. Value can be a set of conditions using MongoDB query
+    comparison operators, e.g., {&#34;$eq&#34;:&#34;5&#34;} or {&#34;$in&#34;:[&#34;3&#34;,&#34;5&#34;,&#34;7&#34;]}
+        
+    https://www.mongodb.com/docs/v4.4/reference/operator/query-comparison/
+    
+    * $eq - Matches values that are equal to a specified value.
+    * $ne - Matches all values that are not equal to a specified value.
+    * $in - Matches any of the values specified in an array. Sensitive to type.
+    * $nin - Matches none of the values specified in an array. Sensitive to type.\
+    
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    key : ``str``, optional
+        Property key or name, e.g., &#34;genus&#34;
+    value : ``str``, ``int``, ``float`` or ``set``
+        Propery value, e.g., &#34;Escherichia&#34; or set of conditions, e.g., {&#34;$gt&#34;:5}
+    
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of removed retrons and their properties. Last chance to 
+        recover deleted data!
+
+    &#34;&#34;&#34;
+    if isinstance(value, list):
+        raise TypeError (&#34;Sorry, more than one value is not supported.&#34; +
+                         &#34; Consider using the set syntax with comparison&#34; +
+                         &#34; operators.&#34;)
+        
+    if key == &#34;node&#34; and isinstance(value, int):
+        value = str(value)
+        
+    gone = get_retrons_by(rdb_handle, key, value)
+    rdb_handle.delete_many({str(key):value})
+    print(&#34;Removed retrons from the database.&#34;)
+    return gone</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.restore_retronDB"><code class="name flex">
+<span>def <span class="ident">restore_retronDB</span></span>(<span>filename=None, db_name=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function will create a new retron database from a previously saved
+CSV file. See <code><a title="retrondb-notebooks.retrondb.save_retronDB" href="#retrondb-notebooks.retrondb.save_retronDB">save_retronDB()</a></code>. The returned pymongo.Collections obj is
+the same type returned by <code><a title="retrondb-notebooks.retrondb.connect_retronDB" href="#retrondb-notebooks.retrondb.connect_retronDB">connect_retronDB()</a></code> and is ready to be used in
+subsequent functions.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>filename</code></strong> :&ensp;` ``str```</dt>
+<dd>Full path or path relavtive to current working directory, in addition
+to the name of the file to be read. The <code>.csv</code> extension is
+automatically added is missing.</dd>
+<dt><strong><code>db_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the database to create from file.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Collection obj</code></dt>
+<dd>A retron database collection object intended to be used as the
+<strong>rdb_handle</strong> parameter in other functions.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def restore_retronDB(filename=None, db_name=None):
+    &#34;&#34;&#34;
+    This function will create a new retron database from a previously saved
+    CSV file. See ``save_retronDB()``. The returned pymongo.Collections obj is
+    the same type returned by ``connect_retronDB()`` and is ready to be used in
+    subsequent functions.
+
+    Parameters
+    ----------
+    filename :  ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
+    db_name : ``str``
+        Name of the database to create from file.
+
+    Returns
+    -------
+    Collection obj
+        A retron database collection object intended to be used as the 
+        **rdb_handle** parameter in other functions.
+
+    &#34;&#34;&#34;
+    # connect to new database instance
+    rdb_handle = connect_retronDB(db_name)
+    
+    # load data
+    add_retrons_by_csv(rdb_handle,filename, True) 
+    return rdb_handle</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.save_retronDB"><code class="name flex">
+<span>def <span class="ident">save_retronDB</span></span>(<span>rdb_handle=None, filename=None, overwrite=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save the entire retron database to a CSV file in your current working
+directory (See <code>os.getcwd()</code>). Consider using <code>os.chdir()</code> to change the
+destination prior to running this function, or provide a full path as
+the <strong>filename</strong> parameter.</p>
+<p>Also see <code><a title="retrondb-notebooks.retrondb.restore_retronDB" href="#retrondb-notebooks.retrondb.restore_retronDB">restore_retronDB()</a></code> to recreate a retron database from a saved
+file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Full path or path relavtive to current working directory, in addition
+to the name of the file to be written. The <code>.csv</code> extension is
+automatically added is missing.</dd>
+<dt><strong><code>overwrite</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to allow existing files to be overwritten. Default is False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Path to saved retron database file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_retronDB(rdb_handle=None, filename=None, overwrite=False):
+    &#34;&#34;&#34;
+    Save the entire retron database to a CSV file in your current working
+    directory (See ``os.getcwd()``). Consider using ``os.chdir()`` to change the
+    destination prior to running this function, or provide a full path as 
+    the **filename** parameter.
+    
+    Also see ``restore_retronDB()`` to recreate a retron database from a saved 
+    file.
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be written. The ``.csv`` extension is 
+        automatically added is missing. 
+    overwrite : ``bool``
+        Whether to allow existing files to be overwritten. Default is False.
+
+    Returns
+    -------
+    str
+        Path to saved retron database file.
+
+    &#34;&#34;&#34;
+    if re.search(&#39;.csv$&#39;, filename) is None: filename += &#39;.csv&#39;
+    if os.path.exists(filename) and not overwrite:
+        raise ProtectedFileError()
+ 
+    rdb_df = get_all_retrons(rdb_handle)
+    rdb_df.to_csv(filename, index=False)
+    print(&#34;Saved retron database.&#34;)
+    return os.path.abspath(filename)</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.update_retron"><code class="name flex">
+<span>def <span class="ident">update_retron</span></span>(<span>rdb_handle=None, retron_dict=None, new_property=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update an existing retron given a dictionaty. The <code>dict</code> must include a unique
+identifier key called "node" with a string-encoded integer, e.g., "node":"0".</p>
+<p>All properties will be checked against current database properties. By
+default, unrecognized properties will be rejected (see <strong>new_property</strong> parameter).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>retron_dict</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary with retron data</dd>
+<dt><strong><code>new_property</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to accept novel properties. Default is <code>False</code>.</dd>
+<dt><strong><code>add</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to add new retrons if not previously entered.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pandas.DataFrame </code></dt>
+<dd>DataFrame of added retron properties.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_retron(rdb_handle=None, retron_dict=None, new_property=False):
+    &#34;&#34;&#34;
+    Update an existing retron given a dictionaty. The ``dict`` must include a unique
+    identifier key called &#34;node&#34; with a string-encoded integer, e.g., &#34;node&#34;:&#34;0&#34;.
+    
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    retron_dict : ``dict``
+        A dictionary with retron data
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.
+    add : ``bool``, optional
+        Whether to add new retrons if not previously entered.
+
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of added retron properties.
+
+    &#34;&#34;&#34;
+    rupd_props = set(retron_dict.keys())
+    if &#34;node&#34; not in rupd_props:
+        raise MissingKeyError()
+    else:
+        # force string values for node IDs
+        retron_dict[&#39;node&#39;] = str(retron_dict[&#39;node&#39;])
+       
+    check_new_property(rdb_handle, rupd_props, new_property)
+    
+    # Get node list for update keys
+    rupd_node = str(retron_dict[&#39;node&#39;])
+    try:
+        rdb_handle.update_one({&#34;node&#34;:rupd_node},{&#34;$set&#34;:retron_dict})
+    except Exception as e:
+        print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to update retron.\n&#34;, e)
+    else:
+        print(&#34;Updated retron in the database.&#34;)
+        rupd_res = rdb_handle.find({&#34;node&#34;:{&#34;$eq&#34;:rupd_node}})
+        return format_result(rupd_res)</code></pre>
+</details>
+</dd>
+<dt id="retrondb-notebooks.retrondb.update_retrons_by_csv"><code class="name flex">
+<span>def <span class="ident">update_retrons_by_csv</span></span>(<span>rdb_handle=None, filename=None, new_property=False, add=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update one or more existing retrons given a CSV file. There must be
+a unique integer identifier for each row in a column named "node".</p>
+<p>All properties will be checked against current database properties. By
+default, unrecognized properties will be rejected (see <strong>new_property</strong> parameter).</p>
+<p>Only pre-existing retrons will be updated. Rows pertaining to new retrons
+will be ignored unless <strong>add</strong>=True.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdb_handle</code></strong> :&ensp;<code><code>pymongo.Collection&lt;/code&gt; obj</code></dt>
+<dd>A retron database collection object, e.g., the output of
+<code>get_retronDB()</code></dd>
+<dt><strong><code>filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Full path or path relavtive to current working directory, in addition
+to the name of the file to be read. The <code>.csv</code> extension is
+automatically added is missing.</dd>
+<dt><strong><code>new_property</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to accept novel properties. Default is <code>False</code>.</dd>
+<dt><strong><code>add</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to add new retrons if not previously entered.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pandas.DataFrame </code></dt>
+<dd>DataFrame of added retron properties.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_retrons_by_csv(rdb_handle=None, filename=None, new_property=False, add=False):
+    &#34;&#34;&#34;
+    Update one or more existing retrons given a CSV file. There must be
+    a unique integer identifier for each row in a column named &#34;node&#34;.
+
+    All properties will be checked against current database properties. By 
+    default, unrecognized properties will be rejected (see **new_property** parameter).
+    
+    Only pre-existing retrons will be updated. Rows pertaining to new retrons
+    will be ignored unless **add**=True.
+
+    Parameters
+    ----------
+    rdb_handle : ``pymongo.Collection`` obj
+        A retron database collection object, e.g., the output of 
+        ``get_retronDB()``
+    filename : ``str``
+        Full path or path relavtive to current working directory, in addition 
+        to the name of the file to be read. The ``.csv`` extension is 
+        automatically added is missing. 
+    new_property : ``bool``, optional
+        Whether to accept novel properties. Default is ``False``.
+    add : ``bool``, optional
+        Whether to add new retrons if not previously entered.
+            
+    Returns
+    -------
+    pandas.DataFrame 
+        DataFrame of added retron properties.
+
+    &#34;&#34;&#34;
+    ret_df = read_retron_csv(rdb_handle=rdb_handle, filename=filename)
+    rupd_props = set(ret_df.columns)
+    check_new_property(rdb_handle, rupd_props, new_property)
+    
+    #DF to dict
+    ret_js = ret_df.to_json(orient=&#39;records&#39;)
+    ret_dict_list = json.loads(ret_js)
+    # Get node list for update keys
+    for retron_dict in ret_dict_list:
+        rupd_node = str(retron_dict[&#39;node&#39;])
+        try:
+            rdb_handle.update_one({&#34;node&#34;:rupd_node},{&#34;$set&#34;:retron_dict},
+                                  upsert=add)
+        except Exception as e:
+            print(ansiRed.format(&#34;Error&#34;)+&#34;: Failed to update retrons.\n&#34;, e)
+    print(&#34;Updated retrons in the database.&#34;)
+    rupd_nodes = list(ret_df[&#39;node&#39;])
+    rupd_res = rdb_handle.find({&#34;node&#34;:{&#34;$in&#34;:rupd_nodes}})
+    return format_result(rupd_res)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="retrondb-notebooks.retrondb.MissingKeyError"><code class="flex name class">
+<span>class <span class="ident">MissingKeyError</span></span>
+<span>(</span><span>message='Please provide a node ID')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>When the node ID key is missing from incoming retron data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MissingKeyError(ValueError):
+    &#39;&#39;&#39;When the node ID key is missing from incoming retron data&#39;&#39;&#39;
+    def __init__(self, message=&#39;Please provide a node ID&#39;):
+        self.message = message
+        super().__init__(self.message)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.ValueError</li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="retrondb-notebooks.retrondb.ProtectedFileError"><code class="flex name class">
+<span>class <span class="ident">ProtectedFileError</span></span>
+<span>(</span><span>message='This file already exists and cannot be overwritten with this function. Consider using a new filename.')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>When a file already exists. Overwrite is not allowed.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ProtectedFileError(ValueError):
+    &#39;&#39;&#39;When a file already exists. Overwrite is not allowed.&#39;&#39;&#39;
+    def __init__(self, message=&#34;This file already exists and cannot be&#34; +
+                 &#34; overwritten with this function. Consider using a new&#34; +
+                 &#34; filename.&#34;):
+        self.message = message
+        super().__init__(self.message)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.ValueError</li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="retrondb-notebooks.retrondb.UnrecognizedPropertyError"><code class="flex name class">
+<span>class <span class="ident">UnrecognizedPropertyError</span></span>
+<span>(</span><span>new_props, message='Failed to add or update retron. \nOne or more unrecognized properties detected:\n\n')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>When a new property is found in incoming retron data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UnrecognizedPropertyError(ValueError):
+    &#39;&#39;&#39;When a new property is found in incoming retron data&#39;&#39;&#39;
+    def __init__(self, new_props, message=&#39;Failed to add or update retron. &#39;+
+                  &#34;\nOne or more unrecognized properties detected:\n\n&#34;):
+        self.message = message
+        for n in new_props:
+            self.message += &#34;\t&#34;+n+&#34;\n&#34;
+        self.message += &#34;\nDouble check your property names or consider setting new_property=True&#34;
+        super().__init__(self.message)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.ValueError</li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="retrondb-notebooks" href="index.html">retrondb-notebooks</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="retrondb-notebooks.retrondb.add_retron" href="#retrondb-notebooks.retrondb.add_retron">add_retron</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.add_retrons_by_csv" href="#retrondb-notebooks.retrondb.add_retrons_by_csv">add_retrons_by_csv</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.check_new_property" href="#retrondb-notebooks.retrondb.check_new_property">check_new_property</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.connect_retronDB" href="#retrondb-notebooks.retrondb.connect_retronDB">connect_retronDB</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.format_result" href="#retrondb-notebooks.retrondb.format_result">format_result</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.get_all_retrons" href="#retrondb-notebooks.retrondb.get_all_retrons">get_all_retrons</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.get_retron" href="#retrondb-notebooks.retrondb.get_retron">get_retron</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.get_retrons_by" href="#retrondb-notebooks.retrondb.get_retrons_by">get_retrons_by</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.read_retron_csv" href="#retrondb-notebooks.retrondb.read_retron_csv">read_retron_csv</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.remove_retron" href="#retrondb-notebooks.retrondb.remove_retron">remove_retron</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.remove_retrons_by" href="#retrondb-notebooks.retrondb.remove_retrons_by">remove_retrons_by</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.restore_retronDB" href="#retrondb-notebooks.retrondb.restore_retronDB">restore_retronDB</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.save_retronDB" href="#retrondb-notebooks.retrondb.save_retronDB">save_retronDB</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.update_retron" href="#retrondb-notebooks.retrondb.update_retron">update_retron</a></code></li>
+<li><code><a title="retrondb-notebooks.retrondb.update_retrons_by_csv" href="#retrondb-notebooks.retrondb.update_retrons_by_csv">update_retrons_by_csv</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="retrondb-notebooks.retrondb.MissingKeyError" href="#retrondb-notebooks.retrondb.MissingKeyError">MissingKeyError</a></code></h4>
+</li>
+<li>
+<h4><code><a title="retrondb-notebooks.retrondb.ProtectedFileError" href="#retrondb-notebooks.retrondb.ProtectedFileError">ProtectedFileError</a></code></h4>
+</li>
+<li>
+<h4><code><a title="retrondb-notebooks.retrondb.UnrecognizedPropertyError" href="#retrondb-notebooks.retrondb.UnrecognizedPropertyError">UnrecognizedPropertyError</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
